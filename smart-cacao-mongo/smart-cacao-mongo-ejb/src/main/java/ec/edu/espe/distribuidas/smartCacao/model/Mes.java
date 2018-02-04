@@ -7,50 +7,19 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import org.mongodb.morphia.annotations.Embedded;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "MES")
-public class Mes implements Serializable {
+@Embedded
+public class Mes extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COD_MES", nullable = false)
-    private Integer codigo;
-
-    @Column(name = "NOMBRE", length = 100, nullable = false)
     private String nombre;
 
     public Mes() {
-    }
-
-    public Mes(Integer codMes) {
-        this.codigo = codMes;
-    }
-
-    public Mes(Integer codMes, String nombre) {
-        this.codigo = codMes;
-        this.nombre = nombre;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codMes) {
-        this.codigo = codMes;
     }
 
     public String getNombre() {
@@ -62,9 +31,14 @@ public class Mes implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Mes{" + "nombre=" + nombre + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -75,14 +49,9 @@ public class Mes implements Serializable {
             return false;
         }
         Mes other = (Mes) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Mes[ codMes=" + codigo + " ]";
     }
 }

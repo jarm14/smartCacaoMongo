@@ -8,65 +8,35 @@
 package ec.edu.espe.distribuidas.smartCacao.model;
 
 import ec.edu.espe.distribuidas.smartCacao.enums.ActividadEnum;
-import java.io.Serializable;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "ACTIVIDAD")
-public class Actividad implements Serializable {
+@Entity(noClassnameStored = true, value = "actividad")
+public class Actividad extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-   
-    @EmbeddedId
-    protected ActividadPK actividadPK;
-    @Column(name = "NOTA", length = 512)
+    @Reference
+    private TipoActividad tipoActividad;
     private String nota;
-    
-    @Column(name = "FECHA_ULTIMA_EJECUCION", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date fechaUltimaEjecucion;
-    
-   @Enumerated(EnumType.STRING)
     private ActividadEnum estado;
-    
-    @Column(name = "COD_COSECHA")
-    private Integer codCosecha;
+    @Reference
+    private Cosecha cosecha;
 
     public Actividad() {
     }
 
-    public Actividad(ActividadPK actividadPK) {
-        this.actividadPK = actividadPK;
+    public TipoActividad getTipoActividad() {
+        return tipoActividad;
     }
 
-    public Actividad(ActividadPK actividadPK, Date fechaUltimaEjecucion, ActividadEnum estado) {
-        this.actividadPK = actividadPK;
-        this.fechaUltimaEjecucion = fechaUltimaEjecucion;
-        this.estado = estado;
-    }
-
-    public Actividad(int codActividad, String codTipoActividad) {
-        this.actividadPK = new ActividadPK(codActividad, codTipoActividad);
-    }
-
-    public ActividadPK getActividadPK() {
-        return actividadPK;
-    }
-
-    public void setActividadPK(ActividadPK actividadPK) {
-        this.actividadPK = actividadPK;
+    public void setTipoActividad(TipoActividad tipoActividad) {
+        this.tipoActividad = tipoActividad;
     }
 
     public String getNota() {
@@ -93,18 +63,23 @@ public class Actividad implements Serializable {
         this.estado = estado;
     }
 
-    public Integer getCodCosecha() {
-        return codCosecha;
+    public Cosecha getCosecha() {
+        return cosecha;
     }
 
-    public void setCodCosecha(Integer codCosecha) {
-        this.codCosecha = codCosecha;
+    public void setCosecha(Cosecha cosecha) {
+        this.cosecha = cosecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Actividad{" + "tipoActividad=" + tipoActividad + ", nota=" + nota + ", fechaUltimaEjecucion=" + fechaUltimaEjecucion + ", estado=" + estado + ", codCosecha=" + cosecha + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (actividadPK != null ? actividadPK.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -115,14 +90,9 @@ public class Actividad implements Serializable {
             return false;
         }
         Actividad other = (Actividad) object;
-        if ((this.actividadPK == null && other.actividadPK != null) || (this.actividadPK != null && !this.actividadPK.equals(other.actividadPK))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Actividad[ actividadPK=" + actividadPK + " ]";
-    }   
 }

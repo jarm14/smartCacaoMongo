@@ -7,71 +7,26 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "USUARIO")
-public class Usuario implements Serializable {
+@Entity(noClassnameStored = true, value = "usuario")
+public class Usuario extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COD_USUARIO", nullable = false)
-    private Integer codigo;
-
-    @Column(name = "NOMBRE", length = 100, nullable = false)
     private String nombre;
-
-    @Column(name = "APELLIDO", length = 100, nullable = false)
     private String apellido;
-
-    @Column(name = "PASSWORD", length = 512, nullable = false)
     private String password;
-
-    @Column(name = "TELEFONO", length = 14, nullable = false)
     private String telefono;
-
-    @Column(name = "EMAIL", length = 256, nullable = false)
     private String email;
-
-    @JoinColumn(name = "COD_TIPO_USUARIO", referencedColumnName = "COD_TIPO_USUARIO")
-    @ManyToOne
-    private TipoUsuario codTipoUsuario;
+    @Reference
+    private TipoUsuario tipoUsuario;
 
     public Usuario() {
-    }
-
-    public Usuario(Integer codUsuario) {
-        this.codigo = codUsuario;
-    }
-
-    public Usuario(Integer codUsuario, String nombre, String apellido, String password, String telefono, String email) {
-        this.codigo = codUsuario;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.password = password;
-        this.telefono = telefono;
-        this.email = email;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codUsuario) {
-        this.codigo = codUsuario;
     }
 
     public String getNombre() {
@@ -114,18 +69,23 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public TipoUsuario getCodTipoUsuario() {
-        return codTipoUsuario;
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setCodTipoUsuario(TipoUsuario codTipoUsuario) {
-        this.codTipoUsuario = codTipoUsuario;
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nombre=" + nombre + ", apellido=" + apellido + ", password=" + password + ", telefono=" + telefono + ", email=" + email + ", tipoUsuario=" + tipoUsuario + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -136,14 +96,9 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Usuario[ codUsuario=" + codigo + " ]";
     }
 }

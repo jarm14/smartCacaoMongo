@@ -7,60 +7,25 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "COSECHA")
-public class Cosecha implements Serializable {
+@Entity(noClassnameStored = true, value = "cosecha")
+public class Cosecha extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COD_COSECHA", nullable = false)
-    private Integer codigo;
-
-    @Column(name = "FECHA_PLANTACION", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date fechaPlantacion;
-
-    @Column(name = "COD_TERRENO", nullable = false)
-    private Integer codTerreno;
-    
-    @Column(name = "COD_TIPO_TERRENO", length = 10, nullable = false)
-    private String codTipoTerreno;
+    @Reference
+    private Terreno terreno;
+    @Reference
+    private TipoTerreno tipoTerreno;
 
     public Cosecha() {
-    }
-
-    public Cosecha(Integer codCosecha) {
-        this.codigo = codCosecha;
-    }
-
-    public Cosecha(Integer codCosecha, Date fechaPlantacion) {
-        this.codigo = codCosecha;
-        this.fechaPlantacion = fechaPlantacion;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codCosecha) {
-        this.codigo = codCosecha;
     }
 
     public Date getFechaPlantacion() {
@@ -71,26 +36,31 @@ public class Cosecha implements Serializable {
         this.fechaPlantacion = fechaPlantacion;
     }
 
-    public Integer getCodTerreno() {
-        return codTerreno;
+    public Terreno getTerreno() {
+        return terreno;
     }
 
-    public void setCodTerreno(Integer terreno) {
-        this.codTerreno = terreno;
+    public void setTerreno(Terreno terreno) {
+        this.terreno = terreno;
     }
 
-    public String getCodTipoTerreno() {
-        return codTipoTerreno;
+    public TipoTerreno getTipoTerreno() {
+        return tipoTerreno;
     }
 
-    public void setCodTipoTerreno(String codTipoTerreno) {
-        this.codTipoTerreno = codTipoTerreno;
+    public void setTipoTerreno(TipoTerreno tipoTerreno) {
+        this.tipoTerreno = tipoTerreno;
+    }
+
+    @Override
+    public String toString() {
+        return "Cosecha{" + "fechaPlantacion=" + fechaPlantacion + ", terreno=" + terreno + ", tipoTerreno=" + tipoTerreno + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -101,14 +71,9 @@ public class Cosecha implements Serializable {
             return false;
         }
         Cosecha other = (Cosecha) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Cosecha[ codCosecha=" + codigo + " ]";
-    }  
 }

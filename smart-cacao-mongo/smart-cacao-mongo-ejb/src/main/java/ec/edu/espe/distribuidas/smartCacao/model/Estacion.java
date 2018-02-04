@@ -7,53 +7,28 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Reference;
+
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "ESTACION")
-public class Estacion implements Serializable {
+@Entity(noClassnameStored = true, value = "estacion")
+public class Estacion extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @EmbeddedId
-    protected EstacionPK estacionPK;
-
-    @Column(name = "NOMBRE", length = 100, nullable = false)
+    @Indexed(options = @IndexOptions(name = "estacion_codigoUIdx", unique = true))
+    private String codigo;
+    @Reference
+    private Mes mes;
     private String nombre;
-
-    @Column(name = "DESCRIPCION", length = 512)
     private String descripcion;
 
     public Estacion() {
-    }
-
-    public Estacion(EstacionPK estacionPK) {
-        this.estacionPK = estacionPK;
-    }
-
-    public Estacion(EstacionPK estacionPK, String nombre) {
-        this.estacionPK = estacionPK;
-        this.nombre = nombre;
-    }
-
-    public Estacion(String codEstacion, int codMes) {
-        this.estacionPK = new EstacionPK(codEstacion, codMes);
-    }
-
-    public EstacionPK getEstacionPK() {
-        return estacionPK;
-    }
-
-    public void setEstacionPK(EstacionPK estacionPK) {
-        this.estacionPK = estacionPK;
     }
 
     public String getNombre() {
@@ -72,10 +47,31 @@ public class Estacion implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Mes getMes() {
+        return mes;
+    }
+
+    public void setMes(Mes mes) {
+        this.mes = mes;
+    }
+
+    @Override
+    public String toString() {
+        return "Estacion{" + "codigo=" + codigo + ", mes=" + mes + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (estacionPK != null ? estacionPK.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -86,14 +82,9 @@ public class Estacion implements Serializable {
             return false;
         }
         Estacion other = (Estacion) object;
-        if ((this.estacionPK == null && other.estacionPK != null) || (this.estacionPK != null && !this.estacionPK.equals(other.estacionPK))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Estacion[ estacionPK=" + estacionPK + " ]";
     }
 }

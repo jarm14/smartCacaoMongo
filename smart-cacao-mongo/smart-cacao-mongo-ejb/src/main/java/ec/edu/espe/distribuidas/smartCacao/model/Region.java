@@ -7,45 +7,28 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "REGION")
-public class Region implements Serializable {
+@Entity(noClassnameStored = true, value = "region")
+public class Region extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "COD_REGION", length = 10, nullable = false)
+    @Indexed(options = @IndexOptions(name = "region_codigoUIdx", unique = true))
     private String codigo;
-
-    @Column(name = "NOMBRE", length = 100, nullable = false)
     private String nombre;
-
-    @Column(name = "COD_ESTACION", length = 10)
-    private String codEstacion;
-
-    @Column(name = "COD_MES", length = 10)
-    private Integer codMes;
+    @Reference
+    private Estacion estacion;
+    @Reference
+    private Mes mes;
 
     public Region() {
-    }
-
-    public Region(String codRegion) {
-        this.codigo = codRegion;
-    }
-
-    public Region(String codRegion, String nombre) {
-        this.codigo = codRegion;
-        this.nombre = nombre;
     }
 
     public String getCodigo() {
@@ -64,26 +47,31 @@ public class Region implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getCodEstacion() {
-        return codEstacion;
+    public Estacion getEstacion() {
+        return estacion;
     }
 
-    public Integer getCodMes() {
-        return codMes;
+    public void setEstacion(Estacion estacion) {
+        this.estacion = estacion;
     }
 
-    public void setCodMes(Integer codMes) {
-        this.codMes = codMes;
+    public Mes getMes() {
+        return mes;
     }
 
-    public void setCodEstacion(String estacion) {
-        this.codEstacion = estacion;
+    public void setMes(Mes mes) {
+        this.mes = mes;
+    }
+
+    @Override
+    public String toString() {
+        return "Region{" + "codigo=" + codigo + ", nombre=" + nombre + ", estacion=" + estacion + ", mes=" + mes + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -94,14 +82,9 @@ public class Region implements Serializable {
             return false;
         }
         Region other = (Region) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Region[ codRegion=" + codigo + " ]";
     }
 }

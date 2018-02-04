@@ -7,70 +7,28 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "HISTORIAL_ESTACION")
-public class HistorialEstacion implements Serializable {
+@Entity(noClassnameStored = true, value = "historial_estacion")
+public class HistorialEstacion extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "COD_HISTORIAL_ESTACION", nullable = false)
-    private Integer codigo;
-
-    @Column(name = "ANIO", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date anio;
-
-    @Column(name = "FECHA_INICIO", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-
-    @Column(name = "FECHA_FINALIZACION", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date fechaFinalizacion;
-
-    @Column(name = "NOTA", length = 512)
     private String nota;
-
-    @Column(name = "COD_ESTACION" ,length = 10)
-    private String codEstacion;
-    
-    @Column(name = "COD_MES")
-    private Integer codMes;
+    @Reference
+    private Estacion estacion;
+    @Reference
+    private Mes mes;
 
     public HistorialEstacion() {
-    }
-
-    public HistorialEstacion(Integer codHistorialEstacion) {
-        this.codigo = codHistorialEstacion;
-    }
-
-    public HistorialEstacion(Integer codHistorialEstacion, Date anio, Date fechaInicio, Date fechaFinalizacion) {
-        this.codigo = codHistorialEstacion;
-        this.anio = anio;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinalizacion = fechaFinalizacion;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codHistorialEstacion) {
-        this.codigo = codHistorialEstacion;
     }
 
     public Date getAnio() {
@@ -105,26 +63,31 @@ public class HistorialEstacion implements Serializable {
         this.nota = nota;
     }
 
-    public String getCodEstacion() {
-        return codEstacion;
+    public Estacion getEstacion() {
+        return estacion;
     }
 
-    public void setCodEstacion(String estacion) {
-        this.codEstacion = estacion;
+    public void setEstacion(Estacion estacion) {
+        this.estacion = estacion;
     }
 
-    public Integer getCodMes() {
-        return codMes;
+    public Mes getMes() {
+        return mes;
     }
 
-    public void setCodMes(Integer codMes) {
-        this.codMes = codMes;
+    public void setMes(Mes mes) {
+        this.mes = mes;
+    }
+
+    @Override
+    public String toString() {
+        return "HistorialEstacion{" + "anio=" + anio + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", nota=" + nota + ", estacion=" + estacion + ", mes=" + mes + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -135,14 +98,9 @@ public class HistorialEstacion implements Serializable {
             return false;
         }
         HistorialEstacion other = (HistorialEstacion) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.HistorialEstacion[ codHistorialEstacion=" + codigo + " ]";
     }
 }

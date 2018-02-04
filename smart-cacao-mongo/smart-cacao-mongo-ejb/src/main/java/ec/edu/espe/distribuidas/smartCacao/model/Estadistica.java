@@ -7,66 +7,26 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "ESTADISTICA")
-public class Estadistica implements Serializable {
+@Entity(noClassnameStored = true, value = "estadistica")
+public class Estadistica extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COD_ESTADISTICA", nullable = false)
-    private Integer codigo;
-
-    @Column(name = "FECHA_ULTIMA_COSECHA", nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date fechaUltimaCosecha;
-
-    @Column(name = "NUMERO_ARBOLES", precision = 5, scale = 0, nullable = false)
     private BigDecimal numeroArboles;
-
-    @Column(name = "TOTAL_KILOS", precision = 8, scale = 2, nullable = false)
     private BigDecimal totalKilos;
-
-    @Column(name = "COD_COSECHA")
-    private Integer codCosecha;
+    @Reference
+    private Cosecha cosecha;
 
     public Estadistica() {
-    }
-
-    public Estadistica(Integer codEstadistica) {
-        this.codigo = codEstadistica;
-    }
-
-    public Estadistica(Integer codEstadistica, Date fechaUltimaCosecha, BigDecimal numeroArboles, BigDecimal totalKilos) {
-        this.codigo = codEstadistica;
-        this.fechaUltimaCosecha = fechaUltimaCosecha;
-        this.numeroArboles = numeroArboles;
-        this.totalKilos = totalKilos;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codEstadistica) {
-        this.codigo = codEstadistica;
     }
 
     public Date getFechaUltimaCosecha() {
@@ -93,18 +53,23 @@ public class Estadistica implements Serializable {
         this.totalKilos = totalKilos;
     }
 
-    public Integer getCodCosecha() {
-        return codCosecha;
+    public Cosecha getCosecha() {
+        return cosecha;
     }
 
-    public void setCodCosecha(Integer codCosecha) {
-        this.codCosecha = codCosecha;
+    public void setCosecha(Cosecha cosecha) {
+        this.cosecha = cosecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Estadistica{" + "fechaUltimaCosecha=" + fechaUltimaCosecha + ", numeroArboles=" + numeroArboles + ", totalKilos=" + totalKilos + ", cosecha=" + cosecha + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -115,14 +80,9 @@ public class Estadistica implements Serializable {
             return false;
         }
         Estadistica other = (Estadistica) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.Estadistica[ codEstadistica=" + codigo + " ]";
     }
 }

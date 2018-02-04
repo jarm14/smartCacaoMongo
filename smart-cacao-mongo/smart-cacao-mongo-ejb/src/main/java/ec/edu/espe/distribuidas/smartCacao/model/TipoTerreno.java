@@ -7,43 +7,24 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.model;
 
-import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  *
  * @author TMET
  */
-@Entity
-@Table(name = "TIPO_TERRENO")
-public class TipoTerreno implements Serializable {
+@Embedded
+public class TipoTerreno extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "COD_TIPO_TERRENO", length = 10, nullable = false)
+    @Indexed(options = @IndexOptions(name = "tipoTerreno_codigoUIdx", unique = true))
     private String codigo;
-
-    @Column(name = "NOMBRE", length = 100, nullable = false)
     private String nombre;
-
-    @Column(name = "DESCRIPCION", length = 512, nullable = false)
     private String descripcion;
 
     public TipoTerreno() {
-    }
-
-    public TipoTerreno(String codTipoTerreno) {
-        this.codigo = codTipoTerreno;
-    }
-
-    public TipoTerreno(String codTipoTerreno, String nombre, String descripcion) {
-        this.codigo = codTipoTerreno;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
     }
 
     public String getCodigo() {
@@ -71,9 +52,14 @@ public class TipoTerreno implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "TipoTerreno{" + "codigo=" + codigo + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (super.id != null ? super.id.hashCode() : 0);
         return hash;
     }
 
@@ -84,14 +70,9 @@ public class TipoTerreno implements Serializable {
             return false;
         }
         TipoTerreno other = (TipoTerreno) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((super.id == null && other.id != null) || (super.id != null && !super.id.equals(super.id))) {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ec.edu.espe.distribuidas.smartCacao.model.TipoTerreno[ codTipoTerreno=" + codigo + " ]";
     }
 }
