@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Tipo Terreno" style="width: 50%; margin: auto;">
+                <p:dataTable var="tipoTerreno" value="#{tipoTerrenoBean.tiposTerreno}"
+                             selectionMode="single" selection="#{tipoTerrenoBean.tipoTerrenoSel}" rowKey="#{tipoTerreno.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{tipoTerreno.codigo}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{tipoTerreno.nombre}" />
+                    </p:column>
+                    <p:column headerText="Descripcion">
+                        <h:outputText value="#{tipoTerreno.descripcion}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{tipoTerrenoBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{tipoTerrenoBean.modificar()}" update="@form" disabled="#{tipoTerrenoBean.tipoTerrenoSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{tipoTerrenoBean.eliminar()}" update="@form" disabled="#{tipoTerrenoBean.tipoTerrenoSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el Tipo de Terreno: #{tipoTerrenoBean.tipoTerrenoSel.nombre}}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{tipoTerrenoBean.titulo} Tipo Actividad" visible="#{tipoTerrenoBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="C&#243;digo" />
+                        <p:inputText id="codigo" value="#{tipoTerrenoBean.tipoTerreno.codigo}" disabled="#{tipoTerrenoBean.enModificar}"/>
+                        <p:outputLabel for="nombre" value="Nombre" />
+                        <p:inputText id="nombre" value="#{tipoTerrenoBean.tipoTerreno.nombre}"/>
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n" />
+                        <p:inputText id="descripcion" value="#{tipoTerrenoBean.tipoTerreno.descripcion}"/>                        
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{tipoTerrenoBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{tipoTerrenoBean.cancelar}" update="@form" />
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

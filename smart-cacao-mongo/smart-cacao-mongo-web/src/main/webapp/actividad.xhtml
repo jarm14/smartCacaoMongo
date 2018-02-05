@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Actividad" style="width: 50%; margin: auto;">
+                <p:dataTable var="actividad" value="#{actividadBean.actividades}"
+                             selectionMode="single" selection="#{actividadBean.actividadSel}" rowKey="#{actividad.id}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{actividad.id}" />
+                    </p:column>
+                    <p:column headerText="Tipo Actividad">
+                        <h:outputText value="#{actividadBean.getActividadNombre(actividad)}" />
+                    </p:column>
+                    <p:column headerText="Codigo Cosecha">
+                        <h:outputText value="#{actividad.cosecha.id}"/>
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{actividad.estado}" />
+                    </p:column>
+                    <p:column headerText="Nota">
+                        <h:outputText value="#{actividad.nota}" />
+                    </p:column>
+                </p:dataTable>
+                
+                <p:commandButton value="Agregar" actionListener="#{actividadBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{actividadBean.modificar()}" update="@form" disabled="#{actividadBean.actividadSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{actividadBean.eliminar()}" update="@form" disabled="#{actividadBean.actividadSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la actividad: #{actividadBean.actividadSel.id}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{actividadBean.titulo} Tipo Actividad" rendered="#{actividadBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="C&#243;digo" />
+                        <p:inputText id="codigo" value="#{actividadBean.actividad.id}" disabled="true"/>
+                        <p:outputLabel for="tipoActividadCmb" value="Tipo Actividad" />
+                        <p:selectOneMenu id="tipoActividadCmb" value="#{actividadBean.actividad.tipoActividad}" style="width:175px">
+                            <f:selectItems var="tipoActividad" value="#{actividadBean.tiposActividad}" itemLabel="#{tipoActividad.nombre}" itemValue="#{tipoActividad.codigo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="codCosechaCmb" value="Codigo Cosecha" />
+                        <p:selectOneMenu id="codCosechaCmb" value="#{actividadBean.actividad.cosecha.id}" style="width:175px" >
+                            <f:selectItems var="cosecha" value="#{actividadBean.cosechas}" itemLabel="#{cosecha.fechaPlantacion}" itemValue="#{cosecha.id}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="fecha" value="Fecha realizar" />
+                        <p:calendar id="fecha" value="#{actividadBean.actividad.fechaUltimaEjecucion}"/>
+                        <p:outputLabel for="estadoActividadCmb" value="Estado"/>
+                        <p:selectOneMenu id="estadoActividadCmb" value="#{actividadBean.actividad.estado}" style="width:175px">
+                            <f:selectItem itemLabel="No Realizado" itemValue="NRE"/>
+                            <f:selectItem itemLabel="Realizado" itemValue="REA"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="nota" value="Nota" />
+                        <p:inputText id="nota" value="#{actividadBean.actividad.nota}" />
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{actividadBean.guardar}" update="@form"/>
+                    <p:commandButton value="Cancelar" actionListener="#{actividadBean.cancelar}" update="@form"/>
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

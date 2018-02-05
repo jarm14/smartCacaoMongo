@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Tipo Usuario" style="width: 50%; margin: auto;">
+                <p:dataTable var="tipoUsuario" value="#{tipoUsuarioBean.tiposUsuario}"
+                             selectionMode="single" selection="#{tipoUsuarioBean.tipoUsuarioSel}" rowKey="#{tipoUsuario.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{tipoUsuario.codigo}" />
+                    </p:column>
+                    <p:column headerText="Descripci&#243;n">
+                        <h:outputText value="#{tipoUsuario.descripcion}" />
+                    </p:column>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{tipoUsuario.tipo}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{tipoUsuarioBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{tipoUsuarioBean.modificar()}" update="@form" disabled="#{tipoUsuarioBean.tipoUsuarioSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{tipoUsuarioBean.eliminar()}" update="@form" disabled="#{tipoUsuarioBean.tipoUsuarioSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el tipo de Usuario: #{tipoUsuarioBean.tipoUsuarioSel.descripcion}}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{tipoUsuarioBean.titulo} Tipo Usuario" visible="#{tipoUsuarioBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="Codigo" />
+                        <p:inputText id="codigo" value="#{tipoUsuarioBean.tipoUsuario.codigo}" disabled="true"/>
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n" />
+                        <p:inputText id="descripcion" value="#{tipoUsuarioBean.tipoUsuario.descripcion}"/>
+                        <p:outputLabel for="tipo" value="Tipo" />
+                        <p:selectOneMenu id="tipo" value="#{tipoUsuarioBean.tipoUsuario.tipo}" style="width:175px">
+                            <f:selectItem itemLabel="Seleccionar uno" itemValue="" />
+                            <f:selectItem itemLabel="Administrador" itemValue="ADM" />
+                            <f:selectItem itemLabel="Operacional" itemValue="OPE" />
+                        </p:selectOneMenu>                       
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{tipoUsuarioBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{tipoUsuarioBean.cancelar}" update="@form" />
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

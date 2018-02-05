@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Estaci&#243;n" style="width: 50%; margin: auto;">
+                <p:dataTable var="estacion" value="#{estacionBean.estaciones}"
+                             selectionMode="single" selection="#{estacionBean.estacionSel}" rowKey="#{estacion.codigo}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{estacion.codigo}" />
+                    </p:column>
+                    <p:column headerText="Mes">
+                        <h:outputText value="#{estacionBean.meses[estacionBean.getIndex(estacion)].nombre}" />
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{estacion.nombre}" />
+                    </p:column>
+                    <p:column headerText="Descripci&#243;n">
+                        <h:outputText value="#{estacion.descripcion}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{estacionBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{estacionBean.modificar()}" update="@form" disabled="#{estacionBean.estacionSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{estacionBean.eliminar()}" update="@form" disabled="#{estacionBean.estacionSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Esstaci&#243;n: #{estacionBean.estacionSel.nombre}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{estacionBean.titulo} Estaci&#243;n" rendered="#{estacionBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="C&#243;digo" />
+                        <p:inputText id="codigo" value="#{estacionBean.estacion.codigo}" disabled="#{estacionBean.enModificar}"/>
+                        <p:outputLabel for="mesCmb" value="Mes"/>
+                        <p:selectOneMenu id="mesCmb" value="#{estacionBean.estacion.mes.id}" style="width:175px">
+                            <f:selectItems var="mes" value="#{estacionBean.meses}" itemLabel="#{mes.nombre}" itemValue="#{mes.id}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="nombre" value="Nombre" />
+                        <p:inputText id="nombre" value="#{estacionBean.estacion.nombre}"/>
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n" />
+                        <p:inputText id="descripcion" value="#{estacionBean.estacion.descripcion}"/>                       
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{estacionBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{estacionBean.cancelar}" update="@form"/>
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

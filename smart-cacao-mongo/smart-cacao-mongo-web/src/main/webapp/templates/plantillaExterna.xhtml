@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <style type="text/css">
+            body {background:url("images/back.jpg")right top repeat-x fixed #fff;}
+        </style>
+        <title>SMART CACAO</title>
+    </h:head>
+
+    <p:growl id="messages"/>
+
+
+    <h:body> 
+
+        <div id="page">
+
+            <div id="top">
+                <p:panelGrid id="pgIcons" style="width: 100%;">
+                    <p:row>
+                        <p:column style="text-align: center; ">
+                            <h:graphicImage value = "/images/banner.png" styleClass="logo"/>                        
+                        </p:column>
+
+                    </p:row>
+                </p:panelGrid>
+                <h:form> 
+
+                </h:form>
+            </div>
+
+            <div id="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" life="3000"  />
+                    <ui:insert name="contenido">
+
+                    </ui:insert>
+                    <p>&nbsp;</p>
+                </h:form>
+            </div>
+
+            <div id="bottom">
+                <p:panel style="border: black 3px solid;text-align: center;">
+                    &copy;Smart Cacao <br/>Universidad de las Fuerzas Armadas ESPE
+                    <br/>Tutor: Henry Ramiro Coral Coral <br/>NRC: 2434
+
+                </p:panel>
+            </div>
+
+        </div>
+
+    </h:body>
+
+</html>

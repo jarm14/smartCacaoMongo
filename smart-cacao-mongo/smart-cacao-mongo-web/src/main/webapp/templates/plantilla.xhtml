@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <h:head>
+        <style type="text/css">
+            body {background:url("images/back.jpg")right top repeat-x fixed #fff;}
+        </style>
+        <title>SMART CACAO</title>
+    </h:head>
+
+    <p:growl id="messages"/>
+
+
+    <h:body> 
+
+        <div id="page">
+
+            <div id="top">
+                <p:panelGrid id="pgIcons" style="width: 100%;">
+                    <p:row>
+                        <p:column style="text-align: center; ">
+                            <h:graphicImage value = "/images/banner.png" styleClass="logo"/>                        
+                        </p:column>
+
+                    </p:row>
+                </p:panelGrid>
+                <h:form> 
+
+                    <p:menubar>
+                        <p:menuitem  value="Inicio" icon="ui-icon-home" action="menu"/>
+                        <p:submenu label="Actividad" icon="ui-icon-home">
+                            <p:menuitem  value="Lista de Actividades"  action="actividad"/>
+                        </p:submenu>
+                        <p:submenu label="Terreno" icon="ui-icon-home">
+                            <p:menuitem  value="Lista de Terrenos"  action="terreno"/>
+                            <p:menuitem  value="Tipos de Terrenos" action="tipoTerreno"/>
+                            <p:menuitem  value="Región de Terrenos" action="region"/>
+                        </p:submenu>
+                        <p:submenu label="Plantaciones" icon="ui-icon-home">
+                            <p:menuitem  value="Lista de Plantaciones"  action="cosecha"/>
+                            <p:menuitem  value="Estadisticas" action="estadistica"/>
+                        </p:submenu>
+                        <p:submenu label="Estacion" icon="ui-icon-home">
+                            <p:menuitem  value="Lista de Estación"  action="estacion"/>
+                            <p:menuitem  value="Historial de Estación" action="historialEstacion"/>
+                            <p:menuitem  value="Meses" action="mes"/>
+                        </p:submenu>
+                        <p:submenu label="Gestión de Usuarios" icon="ui-icon-home">
+                            <p:menuitem  value="Usuarios"  action="usuario"/>
+                            <p:menuitem  value="Tipos de Usuarios" action="tipoUsuario"/>
+                        </p:submenu>
+
+                        <f:facet name="options">
+                            <p:menuitem value="Bienvenido: #{usuarioSesionBean.nombre}" url="#"/>
+                            <p:commandButton value="Logout" action="#{indexBean.logout()}" icon="ui-icon-extlink"/>
+                        </f:facet>
+
+                    </p:menubar>
+                </h:form>
+            </div>
+
+            <div id="content">
+                <h:form>
+                    <p:growl id="growl" showDetail="true" life="3000"  />
+                    <ui:insert name="contenido">
+
+                    </ui:insert>
+                    <p>&nbsp;</p>
+                </h:form>
+            </div>
+
+            <div id="bottom">
+                <p:panel style="border: black 3px solid;text-align: center;">
+                    &copy;Smart Cacao <br/>Universidad de las Fuerzas Armadas ESPE
+                    <br/>Tutor: Henry Ramiro Coral Coral <br/>NRC: 2434
+
+                </p:panel>
+            </div>
+
+        </div>
+
+    </h:body>
+
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Historial Estacion" style="width: 50%; margin: auto;">
+                <p:dataTable var="historialEstacion" value="#{historialEstacionBean.historialesEstacion}"
+                             selectionMode="single" selection="#{historialEstacionBean.historialEstacionSel}" rowKey="#{historialEstacion.id}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{historialEstacion.id}" />
+                    </p:column>
+                    <p:column headerText="Estacion">
+                        <h:outputText value="#{historialEstacionBean.getNombre(historialEstacion)}" />
+                    </p:column>
+                    <p:column headerText="A&#241;o">
+                        <h:outputText value="#{historialEstacion.anio}" styleClass="date">
+                            <f:convertDateTime pattern=" yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Fecha Inicio">
+                        <h:outputText value="#{historialEstacion.fechaInicio}" styleClass="date">
+                            <f:convertDateTime pattern=" MM/d/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Fecha Fin">
+                        <h:outputText value="#{historialEstacion.fechaFinalizacion}" styleClass="date">
+                            <f:convertDateTime pattern=" MM/d/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Nota">
+                        <h:outputText value="#{historialEstacion.nota}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{historialEstacionBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{historialEstacionBean.modificar()}" update="@form" disabled="#{historialEstacionBean.historialEstacionSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{historialEstacionBean.eliminar()}" update="@form" disabled="#{historialEstacionBean.historialEstacionSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el Historial: #{historialEstacionBean.historialEstacionSel.id}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{historialEstacionBean.titulo} Estaci&#243;n" rendered="#{historialEstacionBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="C&#243;digo"/>
+                        <p:inputText id="codigo" value="#{historialEstacionBean.historialEstacion.id}" disabled="true"/>
+                        <p:outputLabel for="estacionCmb" value="Estacion"/>
+                        <p:selectOneMenu id="estacionCmb" value="#{historialEstacionBean.historialEstacion.estacion.codigo}" style="width:175px">
+                            <f:selectItems var="estacion" value="#{historialEstacionBean.estaciones}" itemLabel="#{estacion.nombre}" itemValue="#{estacion.codigo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="descripcion" value="A&#241;o"/>
+                        <p:calendar id="descripcion" value="#{historialEstacionBean.historialEstacion.anio}"/>
+                        <p:outputLabel for="fecahInicio" value="Fecha Inicio" />
+                        <p:calendar id="fecahInicio" value="#{historialEstacionBean.historialEstacion.fechaInicio}"/>   
+                        <p:outputLabel for="fechaFin" value="Fecha Fin"/>
+                        <p:calendar id="fechaFin" value="#{historialEstacionBean.historialEstacion.fechaFinalizacion}"/>  
+                        <p:outputLabel for="nota" value="Nota" />
+                        <p:inputText id="nota" value="#{historialEstacionBean.historialEstacion.nota}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{historialEstacionBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{historialEstacionBean.cancelar}" update="@form"/>
+                </p:panel>
+            </p:panel>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

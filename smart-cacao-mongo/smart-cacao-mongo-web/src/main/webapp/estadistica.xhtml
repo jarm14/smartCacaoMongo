@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Estadistica" style="width: 50%; margin: auto;">
+                <p:panel id="buscPnl" header="Busqueda">
+                    <p:panelGrid columns="3">
+                        <p:outputLabel for="estadisticaCmb" value="Seleccione Cosecha:" />
+                        <p:selectOneMenu id="estadisticaCmb" value="#{estadisticaBean.tipoCosechaBusqueda}">
+                            <f:selectItems var="cosechas" value="#{estadisticaBean.cosechas}" itemLabel="#{cosechas.id}" itemValue="#{cosechas.id}" />
+                        </p:selectOneMenu>
+                        <!--<p:commandButton id="buscarCmd" value="Buscar" actionListener="#{estadisticaBean.buscar()}" update="@form" />-->
+                    </p:panelGrid>
+                </p:panel>   
+                <p:dataTable var="estadistica" value="#{estadisticaBean.estadisticas}"
+                             selectionMode="single" selection="#{estadisticaBean.estadisticaSel}" rowKey="#{estadistica.id}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{estadistica.id}" />
+                    </p:column>
+                    <p:column headerText="Codigo Plantaci&#243;n">
+                        <h:outputText value="#{estadistica.cosecha.id}" />
+                    </p:column>
+                    <p:column headerText="Fecha Ultima Cosecha">
+                        <h:outputText value="#{estadistica.fechaUltimaCosecha}" styleClass="date">
+                            <f:convertDateTime pattern=" MM/d/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="N&#250;mero &#193;rboles">
+                        <h:outputText value="#{estadistica.numeroArboles}" />
+                    </p:column>
+                    <p:column headerText="Total Kilos">
+                        <h:outputText value="#{estadistica.totalKilos}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{estadisticaBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{estadisticaBean.modificar()}" update="@form" disabled="#{estadisticaBean.estadisticaSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{estadisticaBean.eliminar()}" update="@form" disabled="#{estadisticaBean.estadisticaSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Alarma: #{estadisticaBean.estadisticaSel.id}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{estadisticaBean.titulo} Alarma" rendered="#{estadisticaBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="C&#243;digo"/>
+                        <p:inputText id="codigo" value="#{estadisticaBean.estadistica.id}" disabled="true"/>
+                        <p:outputLabel for="cosechaCmb" value="Cosecha"/>
+                        <p:selectOneMenu id="cosechaCmb" value="#{estadisticaBean.estadistica.cosecha.id}" style="width:175px">
+                            <f:selectItems var="cosecha" value="#{estadisticaBean.cosechas}" itemLabel="#{cosecha.id}" itemValue="#{cosecha.id}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="fechaCosecha" value="Fecha Ultima Cosecha"/>
+                        <p:calendar id="fechaCosecha" value="#{estadisticaBean.estadistica.fechaUltimaCosecha}"/>
+                        <p:outputLabel for="numeroArboles" value="N&#250;mero &#193;rboles"/>
+                        <p:inputText id="numeroArboles" value="#{estadisticaBean.estadistica.numeroArboles}" />
+                        <p:outputLabel for="totalKilos" value="Total Kilos"/>
+                        <p:inputText id="totalKilos" value="#{estadisticaBean.estadistica.totalKilos}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{estadisticaBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{estadisticaBean.cancelar}" update="@form"/>
+                </p:panel>
+            </p:panel>
+            <p:spacer height="10px"/>
+            <p:panel header="Estimación" style="width: 50%; margin: auto;">
+                <p:outputLabel value="Se estiman #{estadisticaBean.promedioCosecha} kilos para la siguiente cosecha"/>
+            </p:panel>
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>

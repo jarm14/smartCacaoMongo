@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="contenido">
+            <p:panel header="Alarma" style="width: 50%; margin: auto;">
+                <p:dataTable var="alarma" value="#{alarmaBean.alarmas}"
+                             selectionMode="single" selection="#{alarmaBean.alarmaSel}" rowKey="#{alarma.id}">
+                    <p:ajax event="rowSelect" update="@form" />
+                    <p:ajax event="rowUnselect" update="@form" />
+                    <p:column headerText="Codigo">
+                        <h:outputText value="#{alarma.id}" />
+                    </p:column>
+                    <p:column headerText="Actividad">
+                        <h:outputText value="#{alarmaBean.getNombreActividad(alarma)}" />
+                    </p:column>
+                    <p:column headerText="Descripci&#243;n">
+                        <h:outputText value="#{alarma.descripcion}" />
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Agregar" actionListener="#{alarmaBean.agregar()}" update="@form"/>
+                <p:commandButton value="Modificar" actionListener="#{alarmaBean.modificar()}" update="@form" disabled="#{alarmaBean.alarmaSel eq null}"/>
+                <p:commandButton value="Eliminar" actionListener="#{alarmaBean.eliminar()}" update="@form" disabled="#{alarmaBean.alarmaSel eq null}" >
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Alarma: #{alarmaBean.alarmaSel.id}" icon="ui-icon-alert" />
+                </p:commandButton>
+                <p:panel header="#{alarmaBean.titulo} Alarma" rendered="#{alarmaBean.habilitaForm}">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="codigo" value="C&#243;digo"/>
+                        <p:inputText id="codigo" value="#{alarmaBean.alarma.id}" disabled="true"/>
+                        <p:outputLabel for="actividadCmb" value="Actividad"/>
+                        <p:selectOneMenu id="actividadCmb" value="#{alarmaBean.alarma.actividad.id}" style="width:175px">
+                            <f:selectItems var="actividad" value="#{alarmaBean.actividades}" itemLabel="#{actividad.tipoActividad.id}" itemValue="#{actividad.id}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="descripcion" value="Descripci&#243;n"/>
+                        <p:inputText id="descripcion" value="#{alarmaBean.alarma.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Aceptar" actionListener="#{alarmaBean.guardar}" update="@form" />
+                    <p:commandButton value="Cancelar" actionListener="#{alarmaBean.cancelar}" update="@form"/>
+                </p:panel>
+            </p:panel>
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </ui:define>
+    </ui:composition>
+</html>
