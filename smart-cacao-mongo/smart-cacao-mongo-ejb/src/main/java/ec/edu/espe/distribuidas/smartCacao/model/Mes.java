@@ -17,6 +17,7 @@ import org.mongodb.morphia.annotations.Embedded;
 @Embedded
 public class Mes extends BaseEntity {
 
+    private Integer codigo;
     private String nombre;
 
     public Mes() {
@@ -30,9 +31,17 @@ public class Mes extends BaseEntity {
         this.nombre = nombre;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "Mes{" + "nombre=" + nombre + '}';
+        return "Mes{" + "codigo=" + codigo + ", nombre=" + nombre + '}';
     }
 
     @Override

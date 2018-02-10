@@ -44,10 +44,24 @@ public class TipoUsuarioService {
     }
 
     public void crear(TipoUsuario tipoUsuario) {
+        List<TipoUsuario> aux = this.tipoUsuarioFacade.find().asList();
+        Integer codigo;
+        if(aux.isEmpty())
+        {
+            codigo=1;
+        }
+        else{
+        Integer count = aux.size();
+        TipoUsuario last = aux.get(count-1);
+        codigo = last.getCodigo()+1;
+        }
+        tipoUsuario.setCodigo(codigo);
         this.tipoUsuarioFacade.save(tipoUsuario);
     }
 
     public void modificar(TipoUsuario tipoUsuario) {
+        TipoUsuario aux = this.tipoUsuarioFacade.findOne("codigo", tipoUsuario.getCodigo());
+        tipoUsuario.setId(aux.getId());
         this.tipoUsuarioFacade.save(tipoUsuario);
     }
 

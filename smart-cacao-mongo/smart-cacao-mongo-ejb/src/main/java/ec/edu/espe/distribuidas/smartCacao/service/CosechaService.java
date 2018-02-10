@@ -45,10 +45,24 @@ public class CosechaService {
     }
 
     public void crear(Cosecha cosecha) {
+        List<Cosecha> aux = this.cosechaFacade.find().asList();
+        Integer codigo;
+        if(aux.isEmpty())
+        {
+            codigo=1;
+        }
+        else{
+        Integer count = aux.size();
+        Cosecha last = aux.get(count-1);
+        codigo = last.getCodigo()+1;
+        }
+        cosecha.setCodigo(codigo);
         this.cosechaFacade.save(cosecha);
     }
 
     public void modificar(Cosecha cosecha) {
+        Cosecha aux = this.cosechaFacade.findOne("codigo", cosecha.getCodigo());
+        cosecha.setId(aux.getId());
         this.cosechaFacade.save(cosecha);
     }
 

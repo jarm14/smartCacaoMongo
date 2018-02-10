@@ -63,7 +63,7 @@ public class EstadisticaBean extends BaseBean implements Serializable {
     public void modificar() {
         super.modificar();
         this.estadistica = new Estadistica();
-//        this.estadistica.setCodigo(this.estadisticaSel.getCodigo());
+        this.estadistica.setCodigo(this.estadisticaSel.getCodigo());
 //        this.estadistica.setCodCosecha(this.estadisticaSel.getCodCosecha());
         this.estadistica.setId(this.estadisticaSel.getId());
         this.estadistica.setCosecha(this.estadisticaSel.getCosecha());

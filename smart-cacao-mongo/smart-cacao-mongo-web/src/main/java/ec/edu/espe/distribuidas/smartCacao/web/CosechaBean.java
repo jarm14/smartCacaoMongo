@@ -62,7 +62,7 @@ public class CosechaBean extends BaseBean implements Serializable{
     public void modificar() {
         super.modificar();
         this.cosecha = new Cosecha();
-//        this.cosecha.setCodigo(this.cosechaSel.getCodigo());
+        this.cosecha.setCodigo(this.cosechaSel.getCodigo());
 //        this.cosecha.setCodTerreno(this.cosechaSel.getCodTerreno());
 //        this.cosecha.setCodTipoTerreno(this.cosechaSel.getCodTipoTerreno());
         this.cosecha.setId(this.cosechaSel.getId());

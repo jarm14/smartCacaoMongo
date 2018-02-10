@@ -43,11 +43,23 @@ public class HistorialEstacionService {
         return this.historialEstacionFacade.get(codigo);
     }
 
-    public void crear(HistorialEstacion historalEstacion) {
-        this.historialEstacionFacade.save(historalEstacion);
+    public void crear(HistorialEstacion historialEstacion) {
+        List<HistorialEstacion> aux = this.historialEstacionFacade.find().asList();
+        Integer codigo;
+        if (aux.isEmpty()) {
+            codigo = 1;
+        } else {
+            Integer count = aux.size();
+            HistorialEstacion last = aux.get(count - 1);
+            codigo = last.getCodigo() + 1;
+        }
+        historialEstacion.setCodigo(codigo);
+        this.historialEstacionFacade.save(historialEstacion);
     }
 
     public void modificar(HistorialEstacion historialEstacion) {
+        HistorialEstacion aux = this.historialEstacionFacade.findOne("codigo", historialEstacion.getCodigo());
+        historialEstacion.setId(aux.getId());
         this.historialEstacionFacade.save(historialEstacion);
     }
 

@@ -14,11 +14,11 @@ and open the template in the editor.
         <ui:define name="contenido">
             <p:panel header="Plantaci&#243;n" style="width: 50%; margin: auto;">
                 <p:dataTable var="cosecha" value="#{cosechaBean.cosechas}"
-                             selectionMode="single" selection="#{cosechaBean.cosechaSel}" rowKey="#{cosecha.id}">
+                             selectionMode="single" selection="#{cosechaBean.cosechaSel}" rowKey="#{cosecha.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="C&#243;digo">
-                        <h:outputText value="#{cosecha.id}" />
+                        <h:outputText value="#{cosecha.codigo}" />
                     </p:column>
                     <p:column headerText="Terreno">
                         <h:outputText value="#{cosechaBean.getNombreTerreno(cosecha)}" />
@@ -35,15 +35,15 @@ and open the template in the editor.
                 <p:commandButton value="Agregar" actionListener="#{cosechaBean.agregar()}" update="@form"/>
                 <p:commandButton value="Modificar" actionListener="#{cosechaBean.modificar()}" update="@form" disabled="#{cosechaBean.cosechaSel eq null}"/>
                 <p:commandButton value="Eliminar" actionListener="#{cosechaBean.eliminar()}" update="@form" disabled="#{cosechaBean.cosechaSel eq null}" >
-                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Cosecha: #{cosechaBean.cosechaSel.id}" icon="ui-icon-alert" />
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Cosecha: #{cosechaBean.cosechaSel.codigo}" icon="ui-icon-alert" />
                 </p:commandButton>
                 <p:panel header="#{cosechaBean.titulo} Alarma" rendered="#{cosechaBean.habilitaForm}">
                     <p:panelGrid columns="2">
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
-                        <p:inputText id="codigo" value="#{cosechaBean.cosecha.id}" disabled="true"/>
+                        <p:inputText id="codigo" value="#{cosechaBean.cosecha.codigo}" disabled="true"/>
                         <p:outputLabel for="terrenoCmb" value="Terreno"/>
-                        <p:selectOneMenu id="terrenoCmb" value="#{cosechaBean.cosecha.terreno.id}" style="width:175px">
-                            <f:selectItems var="terreno" value="#{cosechaBean.terrenos}" itemLabel="#{terreno.id}" itemValue="#{terreno.id}"/>
+                        <p:selectOneMenu id="terrenoCmb" value="#{cosechaBean.cosecha.terreno.codigo}" style="width:175px">
+                            <f:selectItems var="terreno" value="#{cosechaBean.terrenos}" itemLabel="#{terreno.codigo}" itemValue="#{terreno.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fechaPlantacion" value="Fecha Plantaci&#243;n"/>
                         <p:calendar id="fechaPlantacion" value="#{cosechaBean.cosecha.fechaPlantacion}"/>

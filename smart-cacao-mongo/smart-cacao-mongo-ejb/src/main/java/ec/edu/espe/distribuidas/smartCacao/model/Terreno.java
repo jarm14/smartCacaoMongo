@@ -19,6 +19,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity(noClassnameStored = true, value = "terreno")
 public class Terreno extends BaseEntity {
 
+    private Integer codigo;
     @Reference
     private TipoTerreno tipoTerreno;
     private String descripcion;
@@ -70,9 +71,17 @@ public class Terreno extends BaseEntity {
         this.region = region;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "Terreno{" + "tipoTerreno=" + tipoTerreno + ", descripcion=" + descripcion + ", ancho=" + ancho + ", largo=" + largo + ", region=" + region + '}';
+        return "Terreno{" + "codigo=" + codigo + ", tipoTerreno=" + tipoTerreno + ", descripcion=" + descripcion + ", ancho=" + ancho + ", largo=" + largo + ", region=" + region + '}';
     }
 
     @Override

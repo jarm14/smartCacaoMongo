@@ -54,7 +54,7 @@ public class MesBean extends BaseBean implements Serializable {
     public void modificar() {
         super.modificar();
         this.mes = new Mes();
-        //this.mes.setCodigo(this.mesSel.getCodigo());
+        this.mes.setCodigo(this.mesSel.getCodigo());
         this.mes.setId(this.mesSel.getId());
         this.mes.setNombre(this.mesSel.getNombre());
     }

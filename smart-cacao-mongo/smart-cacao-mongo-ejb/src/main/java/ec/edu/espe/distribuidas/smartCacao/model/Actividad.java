@@ -20,6 +20,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity(noClassnameStored = true, value = "actividad")
 public class Actividad extends BaseEntity {
 
+    private Integer codigo;
     @Reference
     private TipoActividad tipoActividad;
     private String nota;
@@ -71,9 +72,17 @@ public class Actividad extends BaseEntity {
         this.cosecha = cosecha;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "Actividad{" + "tipoActividad=" + tipoActividad + ", nota=" + nota + ", fechaUltimaEjecucion=" + fechaUltimaEjecucion + ", estado=" + estado + ", codCosecha=" + cosecha + '}';
+        return "Actividad{" + "codigo=" + codigo + ", tipoActividad=" + tipoActividad + ", nota=" + nota + ", fechaUltimaEjecucion=" + fechaUltimaEjecucion + ", estado=" + estado + ", cosecha=" + cosecha + '}';
     }
 
     @Override

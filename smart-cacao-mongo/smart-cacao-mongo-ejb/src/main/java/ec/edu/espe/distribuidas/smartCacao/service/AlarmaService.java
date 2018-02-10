@@ -44,10 +44,24 @@ public class AlarmaService {
     }
 
     public void crear(Alarma alarma) {
+        List<Alarma> aux = this.alarmaFacade.find().asList();
+        Integer codigo;
+        if(aux.isEmpty())
+        {
+            codigo=1;
+        }
+        else{
+        Integer count = aux.size();
+        Alarma last = aux.get(count-1);
+        codigo = last.getCodigo()+1;
+        }
+        alarma.setCodigo(codigo);
         this.alarmaFacade.save(alarma);
     }
 
     public void modificar(Alarma alarma) {
+        Alarma aux = this.alarmaFacade.findOne("codigo", alarma.getCodigo());
+        alarma.setId(aux.getId());
         this.alarmaFacade.save(alarma);
     }
 

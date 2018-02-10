@@ -42,10 +42,24 @@ public class TerrenoService {
     }
 
     public void crear(Terreno terreno) {
+        List<Terreno> aux = this.terrenoFacade.find().asList();
+        Integer codigo;
+        if(aux.isEmpty())
+        {
+            codigo=1;
+        }
+        else{
+        Integer count = aux.size();
+        Terreno last = aux.get(count-1);
+        codigo = last.getCodigo()+1;
+        }
+        terreno.setCodigo(codigo);
         this.terrenoFacade.save(terreno);
     }
 
     public void modificar(Terreno terreno) {
+        Terreno aux = this.terrenoFacade.findOne("codigo", terreno.getCodigo());
+        terreno.setId(aux.getId());
         this.terrenoFacade.save(terreno);
     }
 

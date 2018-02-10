@@ -78,6 +78,7 @@ public class TerrenoBean extends BaseBean implements Serializable{
         //this.terrenoPK = this.terrenoSel.getTerrenoPK();
         //this.terreno.setTerrenoPK(this.terrenoSel.getTerrenoPK());
         //this.terreno.setCodRegion(this.terrenoSel.getCodRegion());
+        this.terreno.setCodigo(this.terrenoSel.getCodigo());
         this.terreno.setId(this.terrenoSel.getId());
         this.terreno.setTipoTerreno(this.terrenoSel.getTipoTerreno());
         this.terreno.setRegion(this.terrenoSel.getRegion());

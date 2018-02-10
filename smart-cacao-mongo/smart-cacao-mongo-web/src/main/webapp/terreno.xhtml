@@ -14,11 +14,11 @@ and open the template in the editor.
         <ui:define name="contenido">
             <p:panel header="Terreno" style="width: 50%; margin: auto;">
                 <p:dataTable var="terreno" value="#{terrenoBean.terrenos}"
-                             selectionMode="single" selection="#{terrenoBean.terrenoSel}" rowKey="#{terreno.id}">
+                             selectionMode="single" selection="#{terrenoBean.terrenoSel}" rowKey="#{terreno.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">
-                        <h:outputText value="#{terreno.id}" />
+                        <h:outputText value="#{terreno.codigo}" />
                     </p:column>
                     <p:column headerText="Tipo Terreno">
                         <h:outputText value="#{terrenoBean.getNombreTipoTerr(terreno)}" />
@@ -39,14 +39,14 @@ and open the template in the editor.
                 <p:commandButton value="Agregar" actionListener="#{terrenoBean.agregar()}" update="@form"/>
                 <p:commandButton value="Modificar" actionListener="#{terrenoBean.modificar()}" update="@form" disabled="#{terrenoBean.terrenoSel eq null}"/>
                 <p:commandButton value="Eliminar" actionListener="#{terrenoBean.eliminar()}" update="@form" disabled="#{terrenoBean.terrenoSel eq null}" >
-                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el Terreno: #{terrenoBean.terrenoSel.id}" icon="ui-icon-alert" />
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el Terreno: #{terrenoBean.terrenoSel.codigo}" icon="ui-icon-alert" />
                 </p:commandButton>
                 <p:panel header="#{terrenoBean.titulo} Estaci&#243;n" rendered="#{terrenoBean.habilitaForm}">
                     <p:panelGrid columns="2">
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
-                        <p:inputText id="codigo" value="#{terrenoBean.terreno.id}" disabled="true"/>
+                        <p:inputText id="codigo" value="#{terrenoBean.terreno.codigo}" disabled="true"/>
                         <p:outputLabel for="tipoTerrenoCmb" value="Tipo Terreno"/>
-                        <p:selectOneMenu id="tipoTerrenoCmb" value="#{terrenoBean.terreno.id}" style="width:175px">
+                        <p:selectOneMenu id="tipoTerrenoCmb" value="#{terrenoBean.terreno.codigo}" style="width:175px">
                             <f:selectItems var="tipoTerreno" value="#{terrenoBean.tiposTerreno}" itemLabel="#{tipoTerreno.nombre}" itemValue="#{tipoTerreno.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="regionCmb" value="Region"/>

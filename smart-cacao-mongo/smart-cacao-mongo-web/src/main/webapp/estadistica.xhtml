@@ -17,20 +17,20 @@ and open the template in the editor.
                     <p:panelGrid columns="3">
                         <p:outputLabel for="estadisticaCmb" value="Seleccione Cosecha:" />
                         <p:selectOneMenu id="estadisticaCmb" value="#{estadisticaBean.tipoCosechaBusqueda}">
-                            <f:selectItems var="cosechas" value="#{estadisticaBean.cosechas}" itemLabel="#{cosechas.id}" itemValue="#{cosechas.id}" />
+                            <f:selectItems var="cosechas" value="#{estadisticaBean.cosechas}" itemLabel="#{cosechas.codigo}" itemValue="#{cosechas.codigo}" />
                         </p:selectOneMenu>
                         <!--<p:commandButton id="buscarCmd" value="Buscar" actionListener="#{estadisticaBean.buscar()}" update="@form" />-->
                     </p:panelGrid>
                 </p:panel>   
                 <p:dataTable var="estadistica" value="#{estadisticaBean.estadisticas}"
-                             selectionMode="single" selection="#{estadisticaBean.estadisticaSel}" rowKey="#{estadistica.id}">
+                             selectionMode="single" selection="#{estadisticaBean.estadisticaSel}" rowKey="#{estadistica.codigo}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">
-                        <h:outputText value="#{estadistica.id}" />
+                        <h:outputText value="#{estadistica.codigo}" />
                     </p:column>
                     <p:column headerText="Codigo Plantaci&#243;n">
-                        <h:outputText value="#{estadistica.cosecha.id}" />
+                        <h:outputText value="#{estadistica.cosecha.codigo}" />
                     </p:column>
                     <p:column headerText="Fecha Ultima Cosecha">
                         <h:outputText value="#{estadistica.fechaUltimaCosecha}" styleClass="date">
@@ -47,15 +47,15 @@ and open the template in the editor.
                 <p:commandButton value="Agregar" actionListener="#{estadisticaBean.agregar()}" update="@form"/>
                 <p:commandButton value="Modificar" actionListener="#{estadisticaBean.modificar()}" update="@form" disabled="#{estadisticaBean.estadisticaSel eq null}"/>
                 <p:commandButton value="Eliminar" actionListener="#{estadisticaBean.eliminar()}" update="@form" disabled="#{estadisticaBean.estadisticaSel eq null}" >
-                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Alarma: #{estadisticaBean.estadisticaSel.id}" icon="ui-icon-alert" />
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar la Alarma: #{estadisticaBean.estadisticaSel.codigo}" icon="ui-icon-alert" />
                 </p:commandButton>
                 <p:panel header="#{estadisticaBean.titulo} Alarma" rendered="#{estadisticaBean.habilitaForm}">
                     <p:panelGrid columns="2">
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
-                        <p:inputText id="codigo" value="#{estadisticaBean.estadistica.id}" disabled="true"/>
+                        <p:inputText id="codigo" value="#{estadisticaBean.estadistica.codigo}" disabled="true"/>
                         <p:outputLabel for="cosechaCmb" value="Cosecha"/>
-                        <p:selectOneMenu id="cosechaCmb" value="#{estadisticaBean.estadistica.cosecha.id}" style="width:175px">
-                            <f:selectItems var="cosecha" value="#{estadisticaBean.cosechas}" itemLabel="#{cosecha.id}" itemValue="#{cosecha.id}"/>
+                        <p:selectOneMenu id="cosechaCmb" value="#{estadisticaBean.estadistica.cosecha.codigo}" style="width:175px">
+                            <f:selectItems var="cosecha" value="#{estadisticaBean.cosechas}" itemLabel="#{cosecha.codigo}" itemValue="#{cosecha.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fechaCosecha" value="Fecha Ultima Cosecha"/>
                         <p:calendar id="fechaCosecha" value="#{estadisticaBean.estadistica.fechaUltimaCosecha}"/>

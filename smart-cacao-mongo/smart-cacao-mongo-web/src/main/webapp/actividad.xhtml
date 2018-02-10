@@ -18,7 +18,7 @@ and open the template in the editor.
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">
-                        <h:outputText value="#{actividad.id}" />
+                        <h:outputText value="#{actividad.codigo}" />
                     </p:column>
                     <p:column headerText="Tipo Actividad">
                         <h:outputText value="#{actividadBean.getActividadNombre(actividad)}" />
@@ -42,14 +42,14 @@ and open the template in the editor.
                 <p:panel header="#{actividadBean.titulo} Tipo Actividad" rendered="#{actividadBean.habilitaForm}">
                     <p:panelGrid columns="2">
                         <p:outputLabel for="codigo" value="C&#243;digo" />
-                        <p:inputText id="codigo" value="#{actividadBean.actividad.id}" disabled="true"/>
+                        <p:inputText id="codigo" value="#{actividadBean.actividad.codigo}" disabled="true"/>
                         <p:outputLabel for="tipoActividadCmb" value="Tipo Actividad" />
                         <p:selectOneMenu id="tipoActividadCmb" value="#{actividadBean.actividad.tipoActividad}" style="width:175px">
                             <f:selectItems var="tipoActividad" value="#{actividadBean.tiposActividad}" itemLabel="#{tipoActividad.nombre}" itemValue="#{tipoActividad.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="codCosechaCmb" value="Codigo Cosecha" />
-                        <p:selectOneMenu id="codCosechaCmb" value="#{actividadBean.actividad.cosecha.id}" style="width:175px" >
-                            <f:selectItems var="cosecha" value="#{actividadBean.cosechas}" itemLabel="#{cosecha.fechaPlantacion}" itemValue="#{cosecha.id}"/>
+                        <p:selectOneMenu id="codCosechaCmb" value="#{actividadBean.actividad.cosecha.codigo}" style="width:175px" >
+                            <f:selectItems var="cosecha" value="#{actividadBean.cosechas}" itemLabel="#{cosecha.fechaPlantacion}" itemValue="#{cosecha.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fecha" value="Fecha realizar" />
                         <p:calendar id="fecha" value="#{actividadBean.actividad.fechaUltimaEjecucion}"/>

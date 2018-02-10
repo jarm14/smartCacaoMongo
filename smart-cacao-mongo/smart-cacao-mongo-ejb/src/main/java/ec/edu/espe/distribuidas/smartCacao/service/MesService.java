@@ -44,10 +44,25 @@ public class MesService {
     }
 
     public void crear(Mes mes) {
+        
+        List<Mes> aux = this.mesFacade.find().asList();
+        Integer codigo;
+        if(aux.isEmpty())
+        {
+            codigo=1;
+        }
+        else{
+        Integer count = aux.size();
+        Mes last = aux.get(count-1);
+        codigo = last.getCodigo()+1;
+        }
+        mes.setCodigo(codigo);
         this.mesFacade.save(mes);
     }
 
     public void modificar(Mes mes) {
+        Mes aux = this.mesFacade.findOne("codigo", mes.getCodigo());
+        mes.setId(aux.getId());
         this.mesFacade.save(mes);
     }
 

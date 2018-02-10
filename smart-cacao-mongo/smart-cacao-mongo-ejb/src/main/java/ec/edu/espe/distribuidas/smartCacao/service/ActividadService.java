@@ -23,7 +23,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import org.bson.types.ObjectId;
 
-
 /**
  *
  * @author TMET
@@ -34,10 +33,10 @@ public class ActividadService {
 
     @EJB
     private MongoPersistence mp;
-    
+
     private ActividadDAO actividadFacade;
     private CosechaDAO cosechaFacade;
-    
+
     @PostConstruct
     public void init() {
 
@@ -54,10 +53,22 @@ public class ActividadService {
     }
 
     public void crear(Actividad actividad) {
+        List<Actividad> aux = this.actividadFacade.find().asList();
+        Integer codigo;
+        if (aux.isEmpty()) {
+            codigo = 0;
+        } else {
+            Integer count = aux.size();
+            Actividad last = aux.get(count - 1);
+            codigo = last.getCodigo() + 1;
+        }
+        actividad.setCodigo(codigo);
         this.actividadFacade.save(actividad);
     }
 
     public void modificar(Actividad actividad) {
+        Actividad aux = this.actividadFacade.findOne("codigo", actividad.getCodigo());
+        actividad.setId(aux.getId());
         this.actividadFacade.save(actividad);
     }
 
@@ -69,7 +80,6 @@ public class ActividadService {
 //    public List<Actividad> obtenerPorFecha(Date date) {
 //        return this.actividadFacade.getByDate(date);
 //    }
-
 //    public void realizaActividad(Actividad actividad) {
 //        ActividadPK actividadPK = new ActividadPK();
 //        actividadPK = actividad.getActividadPK();

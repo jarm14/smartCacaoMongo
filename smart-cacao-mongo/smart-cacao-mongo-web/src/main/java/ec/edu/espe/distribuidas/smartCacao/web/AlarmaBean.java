@@ -62,7 +62,7 @@ public class AlarmaBean extends BaseBean implements Serializable {
     public void modificar() {
         super.modificar();
         this.alarma = new Alarma();
-        //this.alarma.setCodigo(this.alarmaSel.getCodigo());
+        this.alarma.setCodigo(this.alarmaSel.getCodigo());
         this.alarma.setId(this.alarmaSel.getId());
         //this.alarma.setCodActividad(this.alarmaSel.getCodActividad());
         this.alarma.setActividad(this.alarmaSel.getActividad());

@@ -20,6 +20,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity(noClassnameStored = true, value = "estadistica")
 public class Estadistica extends BaseEntity {
 
+    private Integer codigo;
     private Date fechaUltimaCosecha;
     private BigDecimal numeroArboles;
     private BigDecimal totalKilos;
@@ -61,9 +62,17 @@ public class Estadistica extends BaseEntity {
         this.cosecha = cosecha;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "Estadistica{" + "fechaUltimaCosecha=" + fechaUltimaCosecha + ", numeroArboles=" + numeroArboles + ", totalKilos=" + totalKilos + ", cosecha=" + cosecha + '}';
+        return "Estadistica{" + "codigo=" + codigo + ", fechaUltimaCosecha=" + fechaUltimaCosecha + ", numeroArboles=" + numeroArboles + ", totalKilos=" + totalKilos + ", cosecha=" + cosecha + '}';
     }
 
     @Override

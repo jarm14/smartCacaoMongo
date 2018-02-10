@@ -19,6 +19,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity(noClassnameStored = true, value = "cosecha")
 public class Cosecha extends BaseEntity {
 
+    private Integer codigo;
     private Date fechaPlantacion;
     @Reference
     private Terreno terreno;
@@ -52,9 +53,17 @@ public class Cosecha extends BaseEntity {
         this.tipoTerreno = tipoTerreno;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "Cosecha{" + "fechaPlantacion=" + fechaPlantacion + ", terreno=" + terreno + ", tipoTerreno=" + tipoTerreno + '}';
+        return "Cosecha{" + "codigo=" + codigo + ", fechaPlantacion=" + fechaPlantacion + ", terreno=" + terreno + ", tipoTerreno=" + tipoTerreno + '}';
     }
 
     @Override

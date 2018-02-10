@@ -61,7 +61,7 @@ public class HistorialEstacionBean extends BaseBean implements Serializable{
     public void modificar() {
         super.modificar();
         this.historialEstacion = new HistorialEstacion();
-//        this.historialEstacion.setCodigo(this.historialEstacionSel.getCodigo());
+        this.historialEstacion.setCodigo(this.historialEstacionSel.getCodigo());
 //        this.historialEstacion.setCodEstacion(this.historialEstacionSel.getCodEstacion());
 //        this.historialEstacion.setCodMes(this.historialEstacionSel.getCodMes());
         this.historialEstacion.setId(this.historialEstacionSel.getId());

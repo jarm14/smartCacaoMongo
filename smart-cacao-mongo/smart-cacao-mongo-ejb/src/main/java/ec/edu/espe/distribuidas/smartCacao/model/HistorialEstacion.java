@@ -19,6 +19,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity(noClassnameStored = true, value = "historial_estacion")
 public class HistorialEstacion extends BaseEntity {
 
+    private Integer codigo;
     private Date anio;
     private Date fechaInicio;
     private Date fechaFinalizacion;
@@ -79,9 +80,17 @@ public class HistorialEstacion extends BaseEntity {
         this.mes = mes;
     }
 
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "HistorialEstacion{" + "anio=" + anio + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", nota=" + nota + ", estacion=" + estacion + ", mes=" + mes + '}';
+        return "HistorialEstacion{" + "codigo=" + codigo + ", anio=" + anio + ", fechaInicio=" + fechaInicio + ", fechaFinalizacion=" + fechaFinalizacion + ", nota=" + nota + ", estacion=" + estacion + ", mes=" + mes + '}';
     }
 
     @Override

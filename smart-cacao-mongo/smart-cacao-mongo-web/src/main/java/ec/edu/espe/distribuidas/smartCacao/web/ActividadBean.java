@@ -84,6 +84,7 @@ public class ActividadBean extends BaseBean implements Serializable {
         super.modificar();
         this.actividad = new Actividad();
         //this.actividadPK = new ActividadPK();
+        this.actividad.setCodigo(this.actividadSel.getCodigo());
         this.tipoActividad = new TipoActividad();
         this.tiposActividad = this.tipoActividadService.obtenerTodos();
         this.cosecha = new Cosecha();

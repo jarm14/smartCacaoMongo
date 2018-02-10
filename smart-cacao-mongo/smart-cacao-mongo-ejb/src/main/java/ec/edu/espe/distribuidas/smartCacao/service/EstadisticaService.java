@@ -46,10 +46,24 @@ public class EstadisticaService {
 //    }
 
     public void crear(Estadistica estadistica) {
+        List<Estadistica> aux = this.estadisticaFacade.find().asList();
+        Integer codigo;
+        if(aux.isEmpty())
+        {
+            codigo=1;
+        }
+        else{
+        Integer count = aux.size();
+        Estadistica last = aux.get(count-1);
+        codigo = last.getCodigo()+1;
+        }
+        estadistica.setCodigo(codigo);
         this.estadisticaFacade.save(estadistica);
     }
 
     public void modificar(Estadistica estadistica) {
+        Estadistica aux = this.estadisticaFacade.findOne("codigo", estadistica.getCodigo());
+        estadistica.setId(aux.getId());
         this.estadisticaFacade.save(estadistica);
     }
 

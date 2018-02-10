@@ -18,6 +18,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity(noClassnameStored = true, value = "usuario")
 public class Usuario extends BaseEntity {
 
+    private Integer codigo;
     private String nombre;
     private String apellido;
     private String password;
@@ -77,11 +78,19 @@ public class Usuario extends BaseEntity {
         this.tipoUsuario = tipoUsuario;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "nombre=" + nombre + ", apellido=" + apellido + ", password=" + password + ", telefono=" + telefono + ", email=" + email + ", tipoUsuario=" + tipoUsuario + '}';
+    public Integer getCodigo() {
+        return codigo;
     }
 
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + ", password=" + password + ", telefono=" + telefono + ", email=" + email + ", tipoUsuario=" + tipoUsuario + '}';
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

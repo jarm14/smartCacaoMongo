@@ -86,7 +86,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
         }
 
         this.usuario = new Usuario();
-        //this.usuario.setCodigo(this.usuarioSel.getCodigo());
+        this.usuario.setCodigo(this.usuarioSel.getCodigo());
         //this.usuario.setCodTipoUsuario(this.usuarioSel.getCodTipoUsuario());
         this.usuario.setId(this.usuarioSel.getId());
         this.usuario.setTipoUsuario(this.usuarioSel.getTipoUsuario());
@@ -110,7 +110,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
         }
 
         this.usuario = new Usuario();
-        //this.usuario.setCodigo(this.usuarioSel.getCodigo());
+        this.usuario.setCodigo(this.usuarioSel.getCodigo());
         //this.usuario.setCodTipoUsuario(this.usuarioSel.getCodTipoUsuario());
         this.usuario.setId(this.usuarioSel.getId());
         this.usuario.setTipoUsuario(this.usuarioSel.getTipoUsuario());
@@ -204,6 +204,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
     
     public Integer getIndex(Usuario usuario) {
         TipoUsuario aux = new TipoUsuario();
+        //tiposUsuario = this.tipoUsuarioService.obtenerTodos();
         for (int i = 0; i < tiposUsuario.size(); i++) {
             aux = tiposUsuario.get(i);
             if (aux.getCodigo() == usuario.getTipoUsuario().getCodigo()) {

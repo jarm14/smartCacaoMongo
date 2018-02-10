@@ -10,8 +10,6 @@ package ec.edu.espe.distribuidas.smartCacao.model;
 import ec.edu.espe.distribuidas.smartCacao.enums.TipoUsuarioEnum;
 import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.IndexOptions;
-import org.mongodb.morphia.annotations.Indexed;
 
 /**
  *
@@ -20,7 +18,6 @@ import org.mongodb.morphia.annotations.Indexed;
 @Embedded
 public class TipoUsuario extends BaseEntity {
 
-    @Indexed(options = @IndexOptions(name = "tipoUsuario_codigoUIdx", unique = true))
     private Integer codigo;
     private TipoUsuarioEnum tipo;
     private String descripcion;
