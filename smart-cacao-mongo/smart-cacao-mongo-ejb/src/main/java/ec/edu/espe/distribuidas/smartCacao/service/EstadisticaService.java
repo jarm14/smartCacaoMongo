@@ -5,7 +5,9 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.service;
 
+import ec.edu.espe.distribuidas.smartCacao.dao.CosechaDAO;
 import ec.edu.espe.distribuidas.smartCacao.dao.EstadisticaDAO;
+import ec.edu.espe.distribuidas.smartCacao.model.Cosecha;
 import ec.edu.espe.distribuidas.smartCacao.model.Estadistica;
 import ec.edu.espe.distribuidas.smartCacao.mongo.MongoPersistence;
 import java.util.List;
@@ -26,7 +28,7 @@ public class EstadisticaService {
     @EJB
     MongoPersistence mp;
     private EstadisticaDAO estadisticaFacade;
-
+    
     @PostConstruct
     public void init() {
 
@@ -41,9 +43,9 @@ public class EstadisticaService {
         return this.estadisticaFacade.get(codigo);
     }
 
-//    public List<Estadistica> obtenerPorCosecha(Integer codigo) {
-//        return this.estadisticaFacade.findByCosecha(codigo);
-//    }
+    public List<Estadistica> obtenerPorCosecha(String value){
+        return this.estadisticaFacade.find().asList();
+    }
 
     public void crear(Estadistica estadistica) {
         List<Estadistica> aux = this.estadisticaFacade.find().asList();

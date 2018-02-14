@@ -27,7 +27,7 @@ and open the template in the editor.
                         <h:outputText value="#{usuario.apellido}" />
                     </p:column>
                     <p:column headerText="Tipo Usuario">
-                        <h:outputText value="#{usuario.tipoUsuario.descripcion}" />
+                        <h:outputText value="#{usuario.tipoUsuario}" />
                     </p:column>
                 </p:dataTable>
                 <p:commandButton value="Detalles" actionListener="#{usuarioBean.detalles()}" update="@form" disabled="#{usuarioBean.usuarioSel eq null}"/>

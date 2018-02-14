@@ -21,10 +21,10 @@ and open the template in the editor.
                         <h:outputText value="#{actividad.codigo}" />
                     </p:column>
                     <p:column headerText="Tipo Actividad">
-                        <h:outputText value="#{actividadBean.getActividadNombre(actividad)}" />
+                        <h:outputText value="#{actividad.tipoActividad}" />
                     </p:column>
                     <p:column headerText="Codigo Cosecha">
-                        <h:outputText value="#{actividad.cosecha.id}"/>
+                        <h:outputText value="#{actividad.cosecha}"/>
                     </p:column>
                     <p:column headerText="Estado">
                         <h:outputText value="#{actividad.estado}" />
@@ -48,7 +48,7 @@ and open the template in the editor.
                             <f:selectItems var="tipoActividad" value="#{actividadBean.tiposActividad}" itemLabel="#{tipoActividad.nombre}" itemValue="#{tipoActividad.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="codCosechaCmb" value="Codigo Cosecha" />
-                        <p:selectOneMenu id="codCosechaCmb" value="#{actividadBean.actividad.cosecha.codigo}" style="width:175px" >
+                        <p:selectOneMenu id="codCosechaCmb" value="#{actividadBean.actividad.cosecha}" style="width:175px" >
                             <f:selectItems var="cosecha" value="#{actividadBean.cosechas}" itemLabel="#{cosecha.fechaPlantacion}" itemValue="#{cosecha.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fecha" value="Fecha realizar" />

@@ -65,6 +65,9 @@ public class CosechaService {
         cosecha.setId(aux.getId());
         this.cosechaFacade.save(cosecha);
     }
+    
+    
+   
 
     public void eliminar(ObjectId codigo) {
         Cosecha cosecha = this.cosechaFacade.get(codigo);

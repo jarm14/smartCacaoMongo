@@ -13,6 +13,7 @@ import ec.edu.espe.distribuidas.smartCacao.service.CosechaService;
 import ec.edu.espe.distribuidas.smartCacao.service.EstadisticaService;
 import ec.edu.espe.distribuidas.smartCacao.web.util.FacesUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -30,9 +31,11 @@ public class EstadisticaBean extends BaseBean implements Serializable {
 
     private String tipoCosechaBusqueda;
     private List<Estadistica> estadisticas;
+    private List<Estadistica> estadisticasBus;
     private Estadistica estadistica;
     private Estadistica estadisticaSel;
     private List<Cosecha> cosechas;
+
     private Cosecha cosecha;
     private String promedioCosecha;
 
@@ -45,7 +48,7 @@ public class EstadisticaBean extends BaseBean implements Serializable {
     @PostConstruct
     public void init() {
         this.estadistica = new Estadistica();
-        //this.estadisticas = this.estadisticaService.obtenerTodos();
+        this.estadisticas = this.estadisticaService.obtenerTodos();
         this.cosecha = new Cosecha();
         this.cosechas = this.cosechaService.obtenerTodos();
     }
@@ -72,11 +75,18 @@ public class EstadisticaBean extends BaseBean implements Serializable {
         this.estadistica.setTotalKilos(this.estadisticaSel.getTotalKilos());
     }
 
-//    public void buscar() {
-//
-//        this.estadisticas = this.estadisticaService.obtenerPorCosecha(Integer.parseInt(this.tipoCosechaBusqueda));
-//        Promedio();
-//    }
+    public void buscar() {
+        this.estadisticas = this.estadisticaService.obtenerTodos();
+        estadisticasBus = new ArrayList<Estadistica>();
+        for(Estadistica obj: this.estadisticas){
+            if(obj.getCosecha().equals(this.tipoCosechaBusqueda)){
+                this.estadisticasBus.add(obj);
+            }
+        }
+        this.estadisticas = this.estadisticasBus;
+        Promedio();
+    }
+    
     public void Promedio() {
 
         double contador = 0.0;  //este contador llevara la suma de todos los valores 

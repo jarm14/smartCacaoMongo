@@ -21,22 +21,22 @@ import org.mongodb.morphia.annotations.Reference;
 public class Actividad extends BaseEntity {
 
     private Integer codigo;
-    @Reference
-    private TipoActividad tipoActividad;
+    //@Reference
+    private String tipoActividad;
     private String nota;
     private Date fechaUltimaEjecucion;
     private ActividadEnum estado;
-    @Reference
-    private Cosecha cosecha;
+    //@Reference
+    private String cosecha;
 
     public Actividad() {
     }
 
-    public TipoActividad getTipoActividad() {
+    public String getTipoActividad() {
         return tipoActividad;
     }
 
-    public void setTipoActividad(TipoActividad tipoActividad) {
+    public void setTipoActividad(String tipoActividad) {
         this.tipoActividad = tipoActividad;
     }
 
@@ -64,11 +64,11 @@ public class Actividad extends BaseEntity {
         this.estado = estado;
     }
 
-    public Cosecha getCosecha() {
+    public String getCosecha() {
         return cosecha;
     }
 
-    public void setCosecha(Cosecha cosecha) {
+    public void setCosecha(String cosecha) {
         this.cosecha = cosecha;
     }
 

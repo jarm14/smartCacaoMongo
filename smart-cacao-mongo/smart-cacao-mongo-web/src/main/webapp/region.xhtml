@@ -37,7 +37,7 @@ and open the template in the editor.
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
                         <p:inputText id="codigo" value="#{regionBean.region.codigo}" disabled="#{regionBean.enModificar}"/>
                         <p:outputLabel for="estacionCmb" value="Estacion"/>
-                        <p:selectOneMenu id="estacionCmb" value="#{regionBean.region.estacion.codigo}" style="width:175px">
+                        <p:selectOneMenu id="estacionCmb" value="#{regionBean.region.estacion}" style="width:175px">
                             <f:selectItems var="estacion" value="#{regionBean.estaciones}" itemLabel="#{estacion.nombre}" itemValue="#{estacion.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="nombre" value="Nombre" />

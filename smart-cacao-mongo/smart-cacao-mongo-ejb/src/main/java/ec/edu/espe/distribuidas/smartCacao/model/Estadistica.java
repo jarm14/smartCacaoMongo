@@ -24,8 +24,8 @@ public class Estadistica extends BaseEntity {
     private Date fechaUltimaCosecha;
     private BigDecimal numeroArboles;
     private BigDecimal totalKilos;
-    @Reference
-    private Cosecha cosecha;
+    //@Reference
+    private String cosecha;
 
     public Estadistica() {
     }
@@ -54,11 +54,11 @@ public class Estadistica extends BaseEntity {
         this.totalKilos = totalKilos;
     }
 
-    public Cosecha getCosecha() {
+    public String getCosecha() {
         return cosecha;
     }
 
-    public void setCosecha(Cosecha cosecha) {
+    public void setCosecha(String cosecha) {
         this.cosecha = cosecha;
     }
 

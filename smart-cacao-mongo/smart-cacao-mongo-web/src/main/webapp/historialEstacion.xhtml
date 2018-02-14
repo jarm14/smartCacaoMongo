@@ -52,7 +52,7 @@ and open the template in the editor.
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
                         <p:inputText id="codigo" value="#{historialEstacionBean.historialEstacion.codigo}" disabled="true"/>
                         <p:outputLabel for="estacionCmb" value="Estacion"/>
-                        <p:selectOneMenu id="estacionCmb" value="#{historialEstacionBean.historialEstacion.estacion.codigo}" style="width:175px">
+                        <p:selectOneMenu id="estacionCmb" value="#{historialEstacionBean.historialEstacion.estacion}" style="width:175px">
                             <f:selectItems var="estacion" value="#{historialEstacionBean.estaciones}" itemLabel="#{estacion.nombre}" itemValue="#{estacion.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="descripcion" value="A&#241;o"/>

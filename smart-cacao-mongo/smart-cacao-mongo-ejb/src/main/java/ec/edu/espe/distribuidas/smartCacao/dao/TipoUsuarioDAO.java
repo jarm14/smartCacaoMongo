@@ -21,4 +21,5 @@ public class TipoUsuarioDAO extends BasicDAO<TipoUsuario, ObjectId> {
     public TipoUsuarioDAO(Class<TipoUsuario> objectEntity, Datastore ds) {
         super(objectEntity, ds);
     }
+    
 }

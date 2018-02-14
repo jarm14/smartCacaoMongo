@@ -149,7 +149,7 @@ public class TerrenoBean extends BaseBean implements Serializable{
         String nombre = "null";
         for (int i = 0; i < tiposTerreno.size(); i++) {
             aux = tiposTerreno.get(i);
-            if (aux.getCodigo().equals(terreno.getTipoTerreno().getCodigo())) {
+            if (aux.getCodigo().equals(terreno.getTipoTerreno())) {
                 nombre = aux.getNombre();
             }
         }
@@ -173,7 +173,7 @@ public class TerrenoBean extends BaseBean implements Serializable{
         String nombre = "null";
         for (int i = 0; i < regiones.size(); i++) {
             aux = regiones.get(i);
-            if (aux.getCodigo().equals(terreno.getRegion().getCodigo())) {
+            if (aux.getCodigo().equals(terreno.getRegion())) {
                 nombre = aux.getNombre();
             }
         }

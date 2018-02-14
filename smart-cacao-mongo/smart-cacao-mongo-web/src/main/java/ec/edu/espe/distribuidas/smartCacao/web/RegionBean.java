@@ -90,6 +90,7 @@ public class RegionBean extends BaseBean implements Serializable{
             
             //this.region.setCodMes(getEstacionMes(region));
             this.region.setMes(getEstacionMes(region));
+            
             if (this.enAgregar) {
                 this.regionService.crear(this.region);
                 FacesUtil.addMessageInfo("Se agrego la Region: " + this.region.getNombre());
@@ -125,7 +126,7 @@ public class RegionBean extends BaseBean implements Serializable{
         String nombre = "null";
         for (int i = 0; i < estaciones.size(); i++) {
             aux = estaciones.get(i);
-            if (aux.getCodigo().equals(region.getEstacion().getCodigo())) {
+            if (aux.getCodigo().equals(region.getEstacion())) {
                 nombre = aux.getNombre();
             }
         }
@@ -143,12 +144,13 @@ public class RegionBean extends BaseBean implements Serializable{
 //        }
 //        return mes;
 //    }
-    public Mes getEstacionMes(Region region) {
+    
+    public String getEstacionMes(Region region) {
         Estacion aux = new Estacion();
-        Mes mes = new Mes();
+        String mes = "";
         for (int i = 0; i < estaciones.size(); i++) {
             aux = estaciones.get(i);
-            if (aux.getCodigo().equals(region.getEstacion().getCodigo())) {
+            if (aux.getCodigo().equals(region.getEstacion())) {
                 mes = aux.getMes();
             }
         }

@@ -24,7 +24,7 @@ and open the template in the editor.
                         <h:outputText value="#{cosechaBean.getNombreTerreno(cosecha)}" />
                     </p:column>
                     <p:column headerText="Tipo Terreno">
-                        <h:outputText value="#{cosecha.tipoTerreno.codigo}" />
+                        <h:outputText value="#{cosecha.tipoTerreno}" />
                     </p:column>
                     <p:column headerText="Fecha Plantaci&#243;n">
                         <h:outputText value="#{cosecha.fechaPlantacion}" styleClass="date">
@@ -42,8 +42,8 @@ and open the template in the editor.
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
                         <p:inputText id="codigo" value="#{cosechaBean.cosecha.codigo}" disabled="true"/>
                         <p:outputLabel for="terrenoCmb" value="Terreno"/>
-                        <p:selectOneMenu id="terrenoCmb" value="#{cosechaBean.cosecha.terreno.codigo}" style="width:175px">
-                            <f:selectItems var="terreno" value="#{cosechaBean.terrenos}" itemLabel="#{terreno.codigo}" itemValue="#{terreno.codigo}"/>
+                        <p:selectOneMenu id="terrenoCmb" value="#{cosechaBean.cosecha.terreno}" style="width:175px">
+                            <f:selectItems var="terreno" value="#{cosechaBean.terrenos}" itemLabel="#{terreno.descripcion}" itemValue="#{terreno.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fechaPlantacion" value="Fecha Plantaci&#243;n"/>
                         <p:calendar id="fechaPlantacion" value="#{cosechaBean.cosecha.fechaPlantacion}"/>

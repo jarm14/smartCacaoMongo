@@ -29,11 +29,12 @@ import javax.inject.Named;
 public class EstacionBean extends BaseBean implements Serializable {
 
     private List<Mes> meses;
-    private Mes mes;
+    //private Mes mes;
     private List<Estacion> estaciones;
     private Estacion estacion;
     private Estacion estacionSel;
     //private EstacionPK estacionPK;
+    //private String codigoID; 
 
     @Inject
     private MesService mesService;
@@ -46,14 +47,15 @@ public class EstacionBean extends BaseBean implements Serializable {
         this.estaciones = this.estacionService.obtenerTodos();
         this.estacion = new Estacion();
         this.meses = this.mesService.obtenerTodos();
-        this.mes = new Mes();
+        //this.mes = new Mes();
     }
 
     @Override
     public void agregar() {
         //this.estacionPK = new EstacionPK();
         this.estacion = new Estacion();
-        this.mes = new Mes();
+        
+        //this.mes = new Mes();
         this.meses = this.mesService.obtenerTodos();
         super.agregar();
     }
@@ -85,7 +87,7 @@ public class EstacionBean extends BaseBean implements Serializable {
     public void cancelar() {
         super.reset();
         this.estacion = new Estacion();
-        this.mes = new Mes();
+        //this.mes = new Mes();
         //this.estacionPK = new EstacionPK();
     }
 
@@ -94,6 +96,11 @@ public class EstacionBean extends BaseBean implements Serializable {
             //this.estacion.setEstacionPK(estacionPK);
 
             if (this.enAgregar) {
+                /*this.codigoID = this.estacion.getId();
+                System.out.println(this.estacion.getCodigo());
+                System.out.println(this.estacion.getNombre());
+                System.out.println(this.estacion.getDescripcion());
+                System.out.println(this.estacion.getMes());*/
                 this.estacionService.crear(this.estacion);
                 FacesUtil.addMessageInfo("Se agrego la Estacion: " + this.estacion.getNombre());
             } else {
@@ -103,16 +110,17 @@ public class EstacionBean extends BaseBean implements Serializable {
             }
         } catch (Exception e) {
             FacesUtil.addMessageError(null, "Ocurrí\u00f3 un error al actualizar la informaci\u00f3n");
+            System.out.println("Error al guardar: " + e.getMessage());
         }
 
         super.reset();
         this.estacion = new Estacion();
         //this.estacionPK = new EstacionPK();
-        this.mes = new Mes();
+        //this.mes = new Mes();
         this.meses = this.mesService.obtenerTodos();
         this.estaciones = this.estacionService.obtenerTodos();
     }
-
+/*
     public Integer getIndex(Estacion estacion) {
         Mes aux = new Mes();
         Integer index = 0;
@@ -123,7 +131,7 @@ public class EstacionBean extends BaseBean implements Serializable {
             }
         }
         return index;
-    }
+    }*/
 
     public List<Mes> getMeses() {
         return meses;
@@ -133,13 +141,13 @@ public class EstacionBean extends BaseBean implements Serializable {
         return estaciones;
     }
 
-    public Mes getMes() {
+    /*public Mes getMes() {
         return mes;
     }
 
     public void setMes(Mes mes) {
         this.mes = mes;
-    }
+    }*/
 
     public Estacion getEstacion() {
         return estacion;

@@ -124,13 +124,13 @@ public class AlarmaBean extends BaseBean implements Serializable {
 //        }
 //        return nombre;
 //    }
-    public TipoActividad getNombreActividad(Alarma alarma) {
+    public String getNombreActividad(Alarma alarma) {
         Actividad aux = new Actividad();
         Actividad retorna = new Actividad();
 
         for (int i = 0; i < actividades.size(); i++) {
             aux = actividades.get(i);
-            if (aux.getId() == alarma.getActividad().getId()) {
+            if (aux.getCodigo().toString().equals(alarma.getActividad())) {
                 retorna.setTipoActividad(aux.getTipoActividad());
             }
         }

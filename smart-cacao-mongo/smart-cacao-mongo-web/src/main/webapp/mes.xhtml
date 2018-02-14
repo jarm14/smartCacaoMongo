@@ -27,7 +27,7 @@ and open the template in the editor.
                 <p:commandButton value="Agregar" actionListener="#{mesBean.agregar()}" update="@form"/>
                 <p:commandButton value="Modificar" actionListener="#{mesBean.modificar()}" update="@form" disabled="#{mesBean.mesSel eq null}"/>
                 <p:commandButton value="Eliminar" actionListener="#{mesBean.eliminar()}" update="@form" disabled="#{mesBean.mesSel eq null}" >
-                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el Mes: #{mesBean.mesSel.nombre}}" icon="ui-icon-alert" />
+                    <p:confirm header="Confirmaci&#243;n" message="Desea eliminar el Mes: #{mesBean.mesSel.nombre}" icon="ui-icon-alert" />
                 </p:commandButton>
                 <p:panel header="#{mesBean.titulo} Mes" visible="#{mesBean.habilitaForm}">
                     <p:panelGrid columns="2">

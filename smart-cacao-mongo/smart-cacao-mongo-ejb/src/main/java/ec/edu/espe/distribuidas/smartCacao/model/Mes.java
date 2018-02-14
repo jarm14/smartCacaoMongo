@@ -8,15 +8,22 @@
 package ec.edu.espe.distribuidas.smartCacao.model;
 
 import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import java.util.Objects;
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.IndexOptions;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  *
  * @author TMET
  */
-@Embedded
-public class Mes extends BaseEntity {
 
+@Entity(noClassnameStored = true, value = "mes")
+//@Embedded
+public class Mes extends BaseEntity {
+    
+    @Indexed(options = @IndexOptions(name = "mes_codigoUIdx", unique = true))
     private Integer codigo;
     private String nombre;
 
@@ -63,4 +70,5 @@ public class Mes extends BaseEntity {
         }
         return true;
     }
+    
 }

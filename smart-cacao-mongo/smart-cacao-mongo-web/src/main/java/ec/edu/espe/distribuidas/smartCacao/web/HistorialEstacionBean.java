@@ -113,13 +113,11 @@ public class HistorialEstacionBean extends BaseBean implements Serializable{
     }
     
     public String getNombre(HistorialEstacion historialEstacion) {
-        Estacion aux = new Estacion();
         String nombre = "null";
-        for (int i = 0; i < estaciones.size(); i++) {
-            aux = estaciones.get(i);
-            //if (aux.getEstacionPK().getCodEstacion().equals(historialEstacion.getCodEstacion())) {
-            if (aux.getCodigo().equals(historialEstacion.getEstacion().getCodigo())) {
-                nombre = aux.getNombre();
+  
+        for (Estacion esta: estaciones){
+            if (esta.getCodigo().equals(historialEstacion.getEstacion())) {
+                nombre = esta.getNombre();
             }
         }
         return nombre;

@@ -24,10 +24,10 @@ public class HistorialEstacion extends BaseEntity {
     private Date fechaInicio;
     private Date fechaFinalizacion;
     private String nota;
-    @Reference
-    private Estacion estacion;
-    @Reference
-    private Mes mes;
+    //@Reference
+    private String estacion;
+    //@Reference
+    private String mes;
 
     public HistorialEstacion() {
     }
@@ -64,19 +64,19 @@ public class HistorialEstacion extends BaseEntity {
         this.nota = nota;
     }
 
-    public Estacion getEstacion() {
+    public String getEstacion() {
         return estacion;
     }
 
-    public void setEstacion(Estacion estacion) {
+    public void setEstacion(String estacion) {
         this.estacion = estacion;
     }
 
-    public Mes getMes() {
+    public String getMes() {
         return mes;
     }
 
-    public void setMes(Mes mes) {
+    public void setMes(String mes) {
         this.mes = mes;
     }
 

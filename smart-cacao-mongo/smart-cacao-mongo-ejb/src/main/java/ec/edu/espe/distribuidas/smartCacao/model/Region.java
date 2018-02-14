@@ -8,6 +8,7 @@
 package ec.edu.espe.distribuidas.smartCacao.model;
 
 import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
@@ -23,10 +24,10 @@ public class Region extends BaseEntity {
     @Indexed(options = @IndexOptions(name = "region_codigoUIdx", unique = true))
     private String codigo;
     private String nombre;
-    @Reference
-    private Estacion estacion;
-    @Reference
-    private Mes mes;
+    //@Reference
+    private String estacion;
+    //@Reference
+    private String mes;
 
     public Region() {
     }
@@ -47,19 +48,19 @@ public class Region extends BaseEntity {
         this.nombre = nombre;
     }
 
-    public Estacion getEstacion() {
+    public String getEstacion() {
         return estacion;
     }
 
-    public void setEstacion(Estacion estacion) {
+    public void setEstacion(String estacion) {
         this.estacion = estacion;
     }
 
-    public Mes getMes() {
+    public String getMes() {
         return mes;
     }
 
-    public void setMes(Mes mes) {
+    public void setMes(String mes) {
         this.mes = mes;
     }
 

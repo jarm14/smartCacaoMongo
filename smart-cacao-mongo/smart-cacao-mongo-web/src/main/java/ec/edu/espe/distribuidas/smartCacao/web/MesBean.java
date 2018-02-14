@@ -29,7 +29,7 @@ public class MesBean extends BaseBean implements Serializable {
     private List<Mes> meses;
     private Mes mes;
     private Mes mesSel;
-
+    
     @Inject
     private MesService mesService;
 
@@ -55,7 +55,7 @@ public class MesBean extends BaseBean implements Serializable {
         super.modificar();
         this.mes = new Mes();
         this.mes.setCodigo(this.mesSel.getCodigo());
-        this.mes.setId(this.mesSel.getId());
+        //this.mes.setId(this.mesSel.getId());
         this.mes.setNombre(this.mesSel.getNombre());
     }
 
@@ -78,7 +78,7 @@ public class MesBean extends BaseBean implements Serializable {
                 FacesUtil.addMessageInfo("Se agrego el Mes: " + this.mes.getNombre());
             } else {
                 this.mesService.modificar(mes);
-                FacesUtil.addMessageInfo("Se modific\u00f3 el Mes con c\u00f3digo: " + this.mes.getId());
+                FacesUtil.addMessageInfo("Se modific\u00f3 el Mes con c\u00f3digo: " + this.mes.getCodigo());
             }
         } catch (Exception e) {
             FacesUtil.addMessageError(null, "Ocurrí\u00f3 un error al actualizar la informaci\u00f3n");

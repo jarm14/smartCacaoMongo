@@ -128,7 +128,7 @@ public class CosechaBean extends BaseBean implements Serializable{
         String nombre = "null";
         for (int i = 0; i < terrenos.size(); i++) {
             aux = terrenos.get(i);
-            if (aux.getId() == cosecha.getTerreno().getId()) {
+            if (aux.getCodigo().toString().equals(cosecha.getTerreno())) {
                 nombre = aux.getDescripcion();
             }
         }
@@ -147,13 +147,13 @@ public class CosechaBean extends BaseBean implements Serializable{
 //        return nombre;
 //    }
     
-    public TipoTerreno getTipoTerreno(Cosecha cosecha) {
+    public String getTipoTerreno(Cosecha cosecha) {
         Terreno aux = new Terreno();
         Terreno retorna = new Terreno();
 
         for (int i = 0; i < terrenos.size(); i++) {
             aux = terrenos.get(i);
-            if (aux.getId() == cosecha.getTerreno().getId()) {
+            if (aux.getCodigo().toString().equals(cosecha.getTerreno())) {
                 retorna.setTipoTerreno(aux.getTipoTerreno());
             }
         }

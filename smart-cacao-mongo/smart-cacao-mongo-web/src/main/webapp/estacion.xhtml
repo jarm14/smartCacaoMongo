@@ -21,7 +21,7 @@ and open the template in the editor.
                         <h:outputText value="#{estacion.codigo}" />
                     </p:column>
                     <p:column headerText="Mes">
-                        <h:outputText value="#{estacionBean.meses[estacionBean.getIndex(estacion)].nombre}" />
+                        <h:outputText value="#{estacion.mes}" />
                     </p:column>
                     <p:column headerText="Nombre">
                         <h:outputText value="#{estacion.nombre}" />
@@ -40,8 +40,8 @@ and open the template in the editor.
                         <p:outputLabel for="codigo" value="C&#243;digo" />
                         <p:inputText id="codigo" value="#{estacionBean.estacion.codigo}" disabled="#{estacionBean.enModificar}"/>
                         <p:outputLabel for="mesCmb" value="Mes"/>
-                        <p:selectOneMenu id="mesCmb" value="#{estacionBean.estacion.mes.id}" style="width:175px">
-                            <f:selectItems var="mes" value="#{estacionBean.meses}" itemLabel="#{mes.nombre}" itemValue="#{mes.id}"/>
+                        <p:selectOneMenu id="mesCmb" value="#{estacionBean.estacion.mes}" style="width:175px">
+                            <f:selectItems var="mes" value="#{estacionBean.meses}" itemLabel="#{mes.nombre}" itemValue="#{mes.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="nombre" value="Nombre" />
                         <p:inputText id="nombre" value="#{estacionBean.estacion.nombre}"/>

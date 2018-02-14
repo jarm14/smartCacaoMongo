@@ -21,10 +21,10 @@ public class Cosecha extends BaseEntity {
 
     private Integer codigo;
     private Date fechaPlantacion;
-    @Reference
-    private Terreno terreno;
-    @Reference
-    private TipoTerreno tipoTerreno;
+    //@Reference
+    private String terreno;
+    //@Reference
+    private String tipoTerreno;
 
     public Cosecha() {
     }
@@ -37,19 +37,19 @@ public class Cosecha extends BaseEntity {
         this.fechaPlantacion = fechaPlantacion;
     }
 
-    public Terreno getTerreno() {
+    public String getTerreno() {
         return terreno;
     }
 
-    public void setTerreno(Terreno terreno) {
+    public void setTerreno(String terreno) {
         this.terreno = terreno;
     }
 
-    public TipoTerreno getTipoTerreno() {
+    public String getTipoTerreno() {
         return tipoTerreno;
     }
 
-    public void setTipoTerreno(TipoTerreno tipoTerreno) {
+    public void setTipoTerreno(String tipoTerreno) {
         this.tipoTerreno = tipoTerreno;
     }
 

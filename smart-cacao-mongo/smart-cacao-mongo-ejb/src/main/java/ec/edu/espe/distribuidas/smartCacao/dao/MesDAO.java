@@ -21,4 +21,5 @@ public class MesDAO extends BasicDAO<Mes, ObjectId> {
     public MesDAO(Class<Mes> objectEntity, Datastore ds) {
         super(objectEntity, ds);
     }
+    
 }

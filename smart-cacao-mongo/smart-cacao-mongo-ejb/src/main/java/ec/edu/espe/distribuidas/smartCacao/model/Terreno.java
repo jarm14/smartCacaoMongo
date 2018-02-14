@@ -20,13 +20,13 @@ import org.mongodb.morphia.annotations.Reference;
 public class Terreno extends BaseEntity {
 
     private Integer codigo;
-    @Reference
-    private TipoTerreno tipoTerreno;
+    //@Reference
+    private String tipoTerreno;
     private String descripcion;
     private BigDecimal ancho;
     private BigDecimal largo;
-    @Reference
-    private Region region;
+    //@Reference
+    private String region;
 
     public Terreno() {
     }
@@ -55,19 +55,19 @@ public class Terreno extends BaseEntity {
         this.largo = largo;
     }
 
-    public TipoTerreno getTipoTerreno() {
+    public String getTipoTerreno() {
         return tipoTerreno;
     }
 
-    public void setTipoTerreno(TipoTerreno tipoTerreno) {
+    public void setTipoTerreno(String tipoTerreno) {
         this.tipoTerreno = tipoTerreno;
     }
 
-    public Region getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 

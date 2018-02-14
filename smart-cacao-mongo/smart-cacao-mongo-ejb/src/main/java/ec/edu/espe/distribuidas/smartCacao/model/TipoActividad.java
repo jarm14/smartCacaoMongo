@@ -9,6 +9,7 @@ package ec.edu.espe.distribuidas.smartCacao.model;
 
 import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
 
@@ -16,7 +17,8 @@ import org.mongodb.morphia.annotations.Indexed;
  *
  * @author TMET
  */
-@Embedded
+//@Embedded
+@Entity(noClassnameStored = true, value = "tipoActividad")
 public class TipoActividad extends BaseEntity {
 
     @Indexed(options = @IndexOptions(name = "tipoActividad_codigoUIdx", unique = true))

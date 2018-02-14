@@ -69,7 +69,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
     public void cancelar() {
         super.reset();
         this.usuario = new Usuario();
-        this.tipoUsuario = new TipoUsuario();
+        //this.tipoUsuario = new TipoUsuario();
     }
 
     @Override
@@ -136,7 +136,8 @@ public class UsuarioBean extends BaseBean implements Serializable {
     public void guardar() {
         try {
             //this.usuario.setCodTipoUsuario(tiposUsuario.get(getIdTipoU(this.tipoUsuario.getDescripcion())));
-
+            //System.out.println(this.tipoUsuario.getDescripcion() + "" + this.tipoUsuario.getCodigo() + " " + this.tipoUsuario.getTipo().getTexto());
+            //this.usuario.setTipoUsuario(this.tipoUsuario.getTipo().getTexto());
             if (this.enAgregar) {
                 this.usuarioService.crear(this.usuario);
                 FacesUtil.addMessageInfo("Se agrego el Usuario: " + this.usuario.getNombre());
@@ -205,24 +206,24 @@ public class UsuarioBean extends BaseBean implements Serializable {
     public Integer getIndex(Usuario usuario) {
         TipoUsuario aux = new TipoUsuario();
         //tiposUsuario = this.tipoUsuarioService.obtenerTodos();
-        for (int i = 0; i < tiposUsuario.size(); i++) {
+        /*for (int i = 0; i < tiposUsuario.size(); i++) {
             aux = tiposUsuario.get(i);
-            if (aux.getCodigo() == usuario.getTipoUsuario().getCodigo()) {
+            if (aux.getCodigo().toString().equals(usuario.getTipoUsuario())) {
                 index = i;
             }
-        }
+        }*/
         return index;
     }
 
     public Integer getIdTipoU(String descripcion) {
         Integer id = 0;
         TipoUsuario aux = new TipoUsuario();
-        for (int i = 0; i < tiposUsuario.size(); i++) {
+        /*for (int i = 0; i < tiposUsuario.size(); i++) {
             aux = tiposUsuario.get(i);
             if (aux.getDescripcion().equalsIgnoreCase(descripcion)) {
                 id = i;
             }
-        }
+        }*/
         return id;
     }
 }

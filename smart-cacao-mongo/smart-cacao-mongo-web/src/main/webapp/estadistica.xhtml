@@ -17,9 +17,9 @@ and open the template in the editor.
                     <p:panelGrid columns="3">
                         <p:outputLabel for="estadisticaCmb" value="Seleccione Cosecha:" />
                         <p:selectOneMenu id="estadisticaCmb" value="#{estadisticaBean.tipoCosechaBusqueda}">
-                            <f:selectItems var="cosechas" value="#{estadisticaBean.cosechas}" itemLabel="#{cosechas.codigo}" itemValue="#{cosechas.codigo}" />
+                            <f:selectItems var="cosechas" value="#{estadisticaBean.cosechas}" itemLabel="#{cosechas.tipoTerreno}" itemValue="#{cosechas.codigo}" />
                         </p:selectOneMenu>
-                        <!--<p:commandButton id="buscarCmd" value="Buscar" actionListener="#{estadisticaBean.buscar()}" update="@form" />-->
+                        <p:commandButton id="buscarCmd" value="Buscar" actionListener="#{estadisticaBean.buscar()}" update="@form" />
                     </p:panelGrid>
                 </p:panel>   
                 <p:dataTable var="estadistica" value="#{estadisticaBean.estadisticas}"
@@ -30,7 +30,7 @@ and open the template in the editor.
                         <h:outputText value="#{estadistica.codigo}" />
                     </p:column>
                     <p:column headerText="Codigo Plantaci&#243;n">
-                        <h:outputText value="#{estadistica.cosecha.codigo}" />
+                        <h:outputText value="#{estadistica.cosecha}" />
                     </p:column>
                     <p:column headerText="Fecha Ultima Cosecha">
                         <h:outputText value="#{estadistica.fechaUltimaCosecha}" styleClass="date">
@@ -54,8 +54,8 @@ and open the template in the editor.
                         <p:outputLabel for="codigo" value="C&#243;digo"/>
                         <p:inputText id="codigo" value="#{estadisticaBean.estadistica.codigo}" disabled="true"/>
                         <p:outputLabel for="cosechaCmb" value="Cosecha"/>
-                        <p:selectOneMenu id="cosechaCmb" value="#{estadisticaBean.estadistica.cosecha.codigo}" style="width:175px">
-                            <f:selectItems var="cosecha" value="#{estadisticaBean.cosechas}" itemLabel="#{cosecha.codigo}" itemValue="#{cosecha.codigo}"/>
+                        <p:selectOneMenu id="cosechaCmb" value="#{estadisticaBean.estadistica.cosecha}" style="width:175px">
+                            <f:selectItems var="cosecha" value="#{estadisticaBean.cosechas}" itemLabel="#{cosecha.tipoTerreno}" itemValue="#{cosecha.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fechaCosecha" value="Fecha Ultima Cosecha"/>
                         <p:calendar id="fechaCosecha" value="#{estadisticaBean.estadistica.fechaUltimaCosecha}"/>

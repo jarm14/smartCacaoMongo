@@ -10,12 +10,14 @@ package ec.edu.espe.distribuidas.smartCacao.model;
 import ec.edu.espe.distribuidas.smartCacao.enums.TipoUsuarioEnum;
 import ec.edu.espe.distribuidas.smartCacao.mongo.BaseEntity;
 import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
 
 /**
  *
  * @author TMET
  */
-@Embedded
+//@Embedded
+@Entity(noClassnameStored = true, value = "tipoUsuario")
 public class TipoUsuario extends BaseEntity {
 
     private Integer codigo;

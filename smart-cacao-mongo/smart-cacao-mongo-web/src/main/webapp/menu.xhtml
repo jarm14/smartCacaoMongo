@@ -15,14 +15,14 @@ and open the template in the editor.
         <ui:define name="contenido">
             <p:panel header="Calendario" style="width: 50%; margin: auto;">
                 <p:dataTable var="calendario" value="#{actividadBean.actividadDia}"
-                             selectionMode="single" selection="#{actividadBean.actividadSel}" rowKey="#{calendario.actividadPK}">
+                             selectionMode="single" selection="#{actividadBean.actividadSel}" rowKey="#{calendario.id}">
                     <p:ajax event="rowSelect" update="@form" />
                     <p:ajax event="rowUnselect" update="@form" />
                     <p:column headerText="Codigo">
-                        <h:outputText value="#{calendario.actividadPK.codActividad}" />
+                        <h:outputText value="#{calendario.codigo}" />
                     </p:column>
                     <p:column headerText="Tipo Actividad">
-                        <h:outputText value="#{actividadBean.getActividadNombre(calendario)}"/>
+                        <h:outputText value="#{calendario.tipoActividad}"/>
                     </p:column>
                     <p:column headerText="Detalles">
                         <h:outputText value="#{calendario.nota}"/>

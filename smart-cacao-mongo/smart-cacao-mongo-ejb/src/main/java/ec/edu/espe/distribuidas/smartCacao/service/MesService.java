@@ -68,6 +68,8 @@ public class MesService {
 
     public void eliminar(ObjectId codigo) {
         Mes mes = this.mesFacade.get(codigo);
+        System.out.println(mes.getNombre());
         this.mesFacade.delete(mes);
     }
 }
+

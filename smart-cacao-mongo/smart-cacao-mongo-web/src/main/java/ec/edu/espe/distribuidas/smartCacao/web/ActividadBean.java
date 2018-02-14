@@ -142,7 +142,7 @@ public class ActividadBean extends BaseBean implements Serializable {
         for (int i = 0; i < tiposActividad.size(); i++) {
             aux = tiposActividad.get(i);
             //if (aux.getCodigo().equals(actividad.getActividadPK().getCodTipoActividad())) {
-            if (aux.getCodigo().equals(actividad.getId())) {
+            if (aux.getCodigo().equals(actividad.getCodigo())) {
                 nombre = aux.getNombre();
             }
         }

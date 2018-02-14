@@ -20,10 +20,10 @@ public class Alarma extends BaseEntity {
 
     private Integer codigo;
     private String descripcion;
-    @Reference
-    private Actividad actividad;
-    @Reference
-    private TipoActividad tipoActividad;
+    //@Reference
+    private String actividad;
+    //@Reference
+    private String tipoActividad;
 
     public Alarma() {
     }
@@ -36,19 +36,19 @@ public class Alarma extends BaseEntity {
         this.descripcion = descripcion;
     }
 
-    public Actividad getActividad() {
+    public String getActividad() {
         return actividad;
     }
 
-    public void setActividad(Actividad actividad) {
+    public void setActividad(String actividad) {
         this.actividad = actividad;
     }
 
-    public TipoActividad getTipoActividad() {
+    public String getTipoActividad() {
         return tipoActividad;
     }
 
-    public void setTipoActividad(TipoActividad tipoActividad) {
+    public void setTipoActividad(String tipoActividad) {
         this.tipoActividad = tipoActividad;
     }
 
