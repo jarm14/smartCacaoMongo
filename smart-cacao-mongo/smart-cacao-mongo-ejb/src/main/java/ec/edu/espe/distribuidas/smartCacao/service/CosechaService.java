@@ -27,13 +27,13 @@ public class CosechaService {
 
     @EJB
     private MongoPersistence mp;
-    private ActividadService actividadService;
+    //private ActividadService actividadService;
     private CosechaDAO cosechaFacade;
 
     @PostConstruct
     public void init(){
     
-        this.actividadService = new ActividadService();
+        //this.actividadService = new ActividadService();
         this.cosechaFacade = new CosechaDAO(Cosecha.class, mp.context());
     }
     public List<Cosecha> obtenerTodos() {
@@ -67,7 +67,10 @@ public class CosechaService {
     }
     
     
-   
+    public Cosecha buscarPorCodigo(String codigo){
+           return this.cosechaFacade.findOne("codigo", codigo);
+    }
+    
 
     public void eliminar(ObjectId codigo) {
         Cosecha cosecha = this.cosechaFacade.get(codigo);

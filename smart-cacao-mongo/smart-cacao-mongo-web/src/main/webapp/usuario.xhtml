@@ -27,7 +27,7 @@ and open the template in the editor.
                         <h:outputText value="#{usuario.apellido}" />
                     </p:column>
                     <p:column headerText="Tipo Usuario">
-                        <h:outputText value="#{usuario.tipoUsuario}" />
+                        <h:outputText value="#{usuarioBean.getTipoUsuario(usuario)}" />
                     </p:column>
                 </p:dataTable>
                 <p:commandButton value="Detalles" actionListener="#{usuarioBean.detalles()}" update="@form" disabled="#{usuarioBean.usuarioSel eq null}"/>
@@ -41,9 +41,9 @@ and open the template in the editor.
                         <p:outputLabel for="codigo" value="C&#243;digo" />
                         <p:inputText id="codigo" value="#{usuarioBean.usuario.codigo}" disabled="true"/>
                         <p:outputLabel for="tipoUsuario" value="Tipo Usuario" rendered="#{usuarioBean.enAgregar || usuarioBean.enModificar}"/>
-                        <p:selectOneMenu id="tipoUsuario" value="#{usuarioBean.tipoUsuario.descripcion}" rendered="#{usuarioBean.enAgregar || usuarioBean.enModificar}" style="width:175px">
+                        <p:selectOneMenu id="tipoUsuario" value="#{usuarioBean.usuario.tipoUsuario}" rendered="#{usuarioBean.enAgregar || usuarioBean.enModificar}" style="width:175px">
                             <f:selectItem itemLabel="Seleccionar uno" itemValue=""/>
-                            <f:selectItems value="#{usuarioBean.listaTiposU}"/>
+                            <f:selectItems var="usuarios" value="#{usuarioBean.tiposUsuario}" itemLabel="#{usuarios.descripcion}" itemValue="#{usuarios.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="nombre" value="Nombre" />
                         <p:inputText id="nombre" value="#{usuarioBean.usuario.nombre}" disabled="#{usuarioBean.enDetalles}"/>

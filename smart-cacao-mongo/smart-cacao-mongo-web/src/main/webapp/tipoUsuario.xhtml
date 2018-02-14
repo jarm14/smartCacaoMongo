@@ -24,7 +24,7 @@ and open the template in the editor.
                         <h:outputText value="#{tipoUsuario.descripcion}" />
                     </p:column>
                     <p:column headerText="Tipo">
-                        <h:outputText value="#{tipoUsuario.tipo}" />
+                        <h:outputText value="#{tipoUsuario.tipo.texto}" />
                     </p:column>
                 </p:dataTable>
                 <p:commandButton value="Agregar" actionListener="#{tipoUsuarioBean.agregar()}" update="@form"/>

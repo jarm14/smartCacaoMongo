@@ -21,16 +21,19 @@ and open the template in the editor.
                         <h:outputText value="#{actividad.codigo}" />
                     </p:column>
                     <p:column headerText="Tipo Actividad">
-                        <h:outputText value="#{actividad.tipoActividad}" />
+                        <h:outputText value="#{actividadBean.getActividadNombre(actividad)}" />
                     </p:column>
                     <p:column headerText="Codigo Cosecha">
                         <h:outputText value="#{actividad.cosecha}"/>
                     </p:column>
                     <p:column headerText="Estado">
-                        <h:outputText value="#{actividad.estado}" />
+                        <h:outputText value="#{actividad.estado.texto}" />
                     </p:column>
                     <p:column headerText="Nota">
                         <h:outputText value="#{actividad.nota}" />
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{actividad.fechaUltimaEjecucion}" />
                     </p:column>
                 </p:dataTable>
                 
@@ -49,7 +52,7 @@ and open the template in the editor.
                         </p:selectOneMenu>
                         <p:outputLabel for="codCosechaCmb" value="Codigo Cosecha" />
                         <p:selectOneMenu id="codCosechaCmb" value="#{actividadBean.actividad.cosecha}" style="width:175px" >
-                            <f:selectItems var="cosecha" value="#{actividadBean.cosechas}" itemLabel="#{cosecha.fechaPlantacion}" itemValue="#{cosecha.codigo}"/>
+                            <f:selectItems var="cosecha" value="#{actividadBean.cosechas}" itemLabel="#{cosecha.tipoTerreno}" itemValue="#{cosecha.codigo}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="fecha" value="Fecha realizar" />
                         <p:calendar id="fecha" value="#{actividadBean.actividad.fechaUltimaEjecucion}"/>

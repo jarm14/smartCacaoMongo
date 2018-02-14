@@ -7,14 +7,17 @@
  */
 package ec.edu.espe.distribuidas.smartCacao.web;
 
+import ec.edu.espe.distribuidas.smartCacao.enums.ActividadEnum;
 import ec.edu.espe.distribuidas.smartCacao.model.Actividad;
 import ec.edu.espe.distribuidas.smartCacao.model.Cosecha;
+import ec.edu.espe.distribuidas.smartCacao.model.Estadistica;
 import ec.edu.espe.distribuidas.smartCacao.model.TipoActividad;
 import ec.edu.espe.distribuidas.smartCacao.service.ActividadService;
 import ec.edu.espe.distribuidas.smartCacao.service.CosechaService;
 import ec.edu.espe.distribuidas.smartCacao.service.TipoActividadService;
 import ec.edu.espe.distribuidas.smartCacao.web.util.FacesUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +36,7 @@ import org.bson.types.ObjectId;
 public class ActividadBean extends BaseBean implements Serializable {
 
     private List<Actividad> actividades;
+    private List<Actividad> actividadesDia;
     private Actividad actividad;
     private Actividad actividadSel;
     private TipoActividad tipoActividad;
@@ -58,6 +62,7 @@ public class ActividadBean extends BaseBean implements Serializable {
         this.tiposActividad = this.tipoActividadService.obtenerTodos();
         this.cosecha = new Cosecha();
         this.cosechas = this.cosechaService.obtenerTodos();
+        this.getActividadDia();
     }
 
     @Override
@@ -142,31 +147,166 @@ public class ActividadBean extends BaseBean implements Serializable {
         for (int i = 0; i < tiposActividad.size(); i++) {
             aux = tiposActividad.get(i);
             //if (aux.getCodigo().equals(actividad.getActividadPK().getCodTipoActividad())) {
-            if (aux.getCodigo().equals(actividad.getCodigo())) {
+            if (aux.getCodigo().equals(actividad.getTipoActividad())) {
+                nombre = aux.getNombre();
+            }
+        }
+        return nombre;
+    }
+    
+    public String getEstadoNombre(Actividad actividad) {
+        String nombre = "null";
+        TipoActividad aux = new TipoActividad();
+        for (int i = 0; i < tiposActividad.size(); i++) {
+            aux = tiposActividad.get(i);
+            //if (aux.getCodigo().equals(actividad.getActividadPK().getCodTipoActividad())) {
+            if (aux.getCodigo().equals(actividad.getTipoActividad())) {
                 nombre = aux.getNombre();
             }
         }
         return nombre;
     }
 
+    
+    
+    
     public List<Actividad> getActividadDia() {
-        Date cal = Calendar.getInstance().getTime();
-        //this.actividades = this.actividadService.obtenerPorFecha(cal);
-        return actividades;
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        
+        System.out.println("Calendar:" + cal.getTime());
+        this.actividadesDia = new ArrayList<Actividad>();
+        
+        for(Actividad co: this.actividades){
+            System.out.println("Fecha: "+co.getFechaUltimaEjecucion());
+            if(co.getFechaUltimaEjecucion().toString().equals(cal.getTime().toString())&&!co.getEstado().toString().equals("REA")){
+                System.out.println(co.getEstado());
+                System.out.println("Hola");
+                this.actividadesDia.add(co);
+            }
+        }
+        //this.actividades = ;
+        return actividadesDia;
     }
 
     public void realizarActividad() {
 
         //this.actividad.setActividadPK(actividadSel.getId());
+        this.actividad = new Actividad();
         this.actividad.setId(actividadSel.getId());
         //this.actividad.setCodCosecha(actividadSel.getCodCosecha());
-        this.actividad.setCosecha(actividadSel.getCosecha());
+        this.actividad.setCodigo(actividadSel.getCodigo());
+        this.actividad.setCosecha(String.valueOf(actividadSel.getCosecha()));
+        this.actividad.setTipoActividad(actividadSel.getTipoActividad());
         this.actividad.setEstado(actividadSel.getEstado());
         this.actividad.setFechaUltimaEjecucion(this.actividadSel.getFechaUltimaEjecucion());
         this.actividad.setNota(this.actividadSel.getNota());
-        //this.actividadService.realizaActividad(actividad);
-        //this.actividadService.realizaActividad(actividad);
         this.actividadSel = null;
+        this.realizaActividadd(actividad);
+        this.actividades = this.actividadService.obtenerTodos();
+        this.getActividadDia();
+        //this.actividadService.realizaActividad(actividad);
+        
+    }
+    
+    public void realizaActividadd(Actividad actividad) {
+        //ActividadPK actividadPK = new ActividadPK();
+        //actividadPK = actividad.getActividadPK();
+        Cosecha cose = new Cosecha();
+        Date cal = actividad.getFechaUltimaEjecucion();
+        Calendar calendar = Calendar.getInstance();
+        Calendar calendarDia = Calendar.getInstance();
+        calendarDia.setTime(cal);
+        calendarDia.add(Calendar.DAY_OF_YEAR, 15);
+        calendar.setTime(cal);
+        Calendar calendarMes = Calendar.getInstance();
+        calendarMes.setTime(cal);
+        calendarMes.add(Calendar.MONTH, 7);
+        //cosecha = cosechaService.buscarPorCodigo(actividad.getCosecha());
+        //cosecha = this.cosechaFacade.findOne("codigo", actividad.getCosecha());
+        
+        System.out.println(actividad.getNota());
+        //System.out.println(cosecha.getCodigo());
+        
+        for(Cosecha co: this.cosechas){
+            if(co.getCodigo().toString().equals(actividad.getCosecha())){
+                cose = co;
+            }
+        }
+        
+        System.out.println(cose.getCodigo());
+        System.out.println(cose.getFechaPlantacion());
+        
+        if (actividad.getTipoActividad().equals("CAM")) {
+            //Creacion de actividad tipo riego
+            actividad.setEstado(ActividadEnum.REA);
+            this.actividadService.modificar(actividad);
+            cose.setTipoTerreno("PRO");
+            this.cosechaService.modificar(cose);
+            actividad = new Actividad();
+            //actividadPK = new ActividadPK();
+            actividad.setTipoActividad("RIE");
+            //actividad.setActividadPK();
+            actividad.setCosecha(cose.getCodigo().toString());
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            actividad.setFechaUltimaEjecucion(calendar.getTime());
+            actividad.setNota("Plantacion: " + cose.getCodigo() + ", Terreno: " + cose.getTipoTerreno());
+            actividad.setEstado(ActividadEnum.NRE);
+            this.actividadService.crear(actividad);
+            //Creacion de actividad tipo Deshierbado
+            actividad = new Actividad();
+            //actividadPK = new ActividadPK();
+            actividad.setTipoActividad("DES");
+            //actividad.setActividadPK(actividadPK);
+            actividad.setCosecha(cose.getCodigo().toString());
+            calendar.add(Calendar.MONTH, 4);
+            actividad.setFechaUltimaEjecucion(calendar.getTime());
+            actividad.setNota("Plantacion: " + cose.getCodigo() + ", Terreno: " + cose.getTipoTerreno());
+            actividad.setEstado(ActividadEnum.NRE);
+            this.actividadService.crear(actividad);
+            //Creacion de actividad tipo Cosecha
+            actividad = new Actividad();
+            //actividadPK = new ActividadPK();
+            actividad.setTipoActividad("COS");
+            //actividad.setActividadPK(actividadPK);
+            actividad.setCosecha(cose.getCodigo().toString());
+            calendar.add(Calendar.YEAR, 3);
+            actividad.setFechaUltimaEjecucion(calendar.getTime());
+            actividad.setNota("Plantacion: " + cose.getCodigo() + ", Terreno: " + cose.getTipoTerreno());
+            actividad.setEstado(ActividadEnum.NRE);
+            this.actividadService.crear(actividad);
+        } else if (cose.getTipoTerreno().equals("NUR")) {
+            if (actividad.getTipoActividad().equals("RIE") && calendar.before(calendarDia)) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                actividad.setFechaUltimaEjecucion(calendar.getTime());
+                this.actividadService.modificar(actividad);
+            } else if (actividad.getTipoActividad().equals("RIE") && calendar.before(calendarMes)) {
+                calendar.add(Calendar.DAY_OF_YEAR, 2);
+                actividad.setFechaUltimaEjecucion(calendar.getTime());
+                this.actividadService.modificar(actividad);
+            } else if (actividad.getTipoActividad().equals("RIE") && calendar.after(calendarMes)) {
+                actividad.setEstado(ActividadEnum.REA);
+                this.actividadService.modificar(actividad);
+            }
+        } else if (cose.getTipoTerreno().equals("PRO")) {
+            if (actividad.getTipoActividad().equals("RIE")) {
+                calendar.add(Calendar.DAY_OF_YEAR, 4);
+                actividad.setFechaUltimaEjecucion(calendar.getTime());
+                this.actividadService.modificar(actividad);
+            } else if (actividad.getTipoActividad().equals("COS")) {
+                calendar.add(Calendar.MONTH, 6);
+                actividad.setFechaUltimaEjecucion(calendar.getTime());
+                this.actividadService.modificar(actividad);
+                Estadistica estadistica = new Estadistica();
+                estadistica.setCosecha(cose.getCodigo().toString());
+            } else if (actividad.getTipoActividad().equals("DES")) {
+                calendar.add(Calendar.MONTH, 4);
+                actividad.setFechaUltimaEjecucion(calendar.getTime());
+                this.actividadService.modificar(actividad);
+            }
+        }
     }
 
     public Actividad getActividad() {
@@ -220,4 +360,10 @@ public class ActividadBean extends BaseBean implements Serializable {
     public void setCosecha(Cosecha cosecha) {
         this.cosecha = cosecha;
     }
+
+    public List<Actividad> getActividadesDia() {
+        return actividadesDia;
+    }
+    
+    
 }

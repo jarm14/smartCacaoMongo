@@ -22,7 +22,7 @@ and open the template in the editor.
                         <h:outputText value="#{calendario.codigo}" />
                     </p:column>
                     <p:column headerText="Tipo Actividad">
-                        <h:outputText value="#{calendario.tipoActividad}"/>
+                        <h:outputText value="#{actividadBean.getActividadNombre(calendario)}"/>
                     </p:column>
                     <p:column headerText="Detalles">
                         <h:outputText value="#{calendario.nota}"/>

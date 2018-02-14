@@ -12,6 +12,7 @@ import ec.edu.espe.distribuidas.smartCacao.model.Alarma;
 import ec.edu.espe.distribuidas.smartCacao.model.TipoActividad;
 import ec.edu.espe.distribuidas.smartCacao.service.ActividadService;
 import ec.edu.espe.distribuidas.smartCacao.service.AlarmaService;
+import ec.edu.espe.distribuidas.smartCacao.service.TipoActividadService;
 import ec.edu.espe.distribuidas.smartCacao.web.util.FacesUtil;
 import java.io.Serializable;
 import java.util.List;
@@ -33,6 +34,7 @@ public class AlarmaBean extends BaseBean implements Serializable {
     private Alarma alarma;
     private Alarma alarmaSel;
     private List<Actividad> actividades;
+    private List<TipoActividad> tipoActividades;
     private Actividad actividad;
 
     @Inject
@@ -41,12 +43,16 @@ public class AlarmaBean extends BaseBean implements Serializable {
     @Inject
     private ActividadService actividadService;
 
+    @Inject
+    private TipoActividadService tipoActividadService;
+    
     @PostConstruct
     public void init() {
         this.alarma = new Alarma();
         this.alarmas = this.alarmaService.obtenerTodos();
         this.actividad = new Actividad();
         this.actividades = this.actividadService.obtenerTodos();
+        this.tipoActividades = this.tipoActividadService.obtenerTodos();
     }
 
     @Override
@@ -134,8 +140,16 @@ public class AlarmaBean extends BaseBean implements Serializable {
                 retorna.setTipoActividad(aux.getTipoActividad());
             }
         }
+        
+        for(TipoActividad obj: this.tipoActividades){
+            if(obj.getCodigo().equals(retorna.getTipoActividad())){
+                return obj.getNombre();
+            }
+        }
         return retorna.getTipoActividad();
     }
+    
+    
 
     public List<Alarma> getAlarmas() {
         return alarmas;

@@ -54,7 +54,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
     @Override
     public void agregar() {
         this.usuario = new Usuario();
-        this.tipoUsuario = new TipoUsuario();
+        //this.tipoUsuario = new TipoUsuario();
         this.tiposUsuario = this.tipoUsuarioService.obtenerTodos();
         this.listaTipoU = new ArrayList<>();
         TipoUsuario aux = new TipoUsuario();
@@ -75,7 +75,7 @@ public class UsuarioBean extends BaseBean implements Serializable {
     @Override
     public void modificar() {
         super.modificar();
-        this.tipoUsuario = new TipoUsuario();
+        //this.tipoUsuario = new TipoUsuario();
         this.tiposUsuario = this.tipoUsuarioService.obtenerTodos();
         this.listaTipoU = new ArrayList<>();
         TipoUsuario aux = new TipoUsuario();
@@ -136,8 +136,8 @@ public class UsuarioBean extends BaseBean implements Serializable {
     public void guardar() {
         try {
             //this.usuario.setCodTipoUsuario(tiposUsuario.get(getIdTipoU(this.tipoUsuario.getDescripcion())));
-            //System.out.println(this.tipoUsuario.getDescripcion() + "" + this.tipoUsuario.getCodigo() + " " + this.tipoUsuario.getTipo().getTexto());
-            //this.usuario.setTipoUsuario(this.tipoUsuario.getTipo().getTexto());
+            //System.out.println("Tipo: " + this.tipoUsuario.getDescripcion() + "" + this.tipoUsuario.getCodigo() + " " + this.tipoUsuario.getTipo().getTexto());
+            //this.usuario.setTipoUsuario(this.tipoUsuario.getTipo().toString());
             if (this.enAgregar) {
                 this.usuarioService.crear(this.usuario);
                 FacesUtil.addMessageInfo("Se agrego el Usuario: " + this.usuario.getNombre());
@@ -151,9 +151,18 @@ public class UsuarioBean extends BaseBean implements Serializable {
 
         super.reset();
         this.usuario = new Usuario();
-        this.tipoUsuario = new TipoUsuario();
+        //this.tipoUsuario = new TipoUsuario();
         this.tiposUsuario = this.tipoUsuarioService.obtenerTodos();
         this.usuarios = this.usuarioService.obtenerTodos();
+    }
+    
+    public String getTipoUsuario(Usuario usuario) {
+        for(TipoUsuario obj: this.tiposUsuario){
+            if(obj.getCodigo().toString().equals(usuario.getTipoUsuario())){
+                return obj.getTipo().getTexto();
+            }
+        }
+        return "null";
     }
 
     public List<String> getListaTiposU() {
